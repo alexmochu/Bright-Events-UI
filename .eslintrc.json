@@ -15,6 +15,7 @@
         "react"
     ],
     "rules": {
+        "no-console": "off",
         "react/jsx-uses-vars": 2,
         "react/jsx-uses-react": 2,
         "react/jsx-no-duplicate-props": 2,
