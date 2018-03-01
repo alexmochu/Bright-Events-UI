@@ -16,6 +16,7 @@
     ],
     "rules": {
         "no-console": "off",
+        "react/jsx-key": 2,
         "react/jsx-uses-vars": 2,
         "react/jsx-uses-react": 2,
         "react/jsx-no-duplicate-props": 2,
@@ -31,7 +32,6 @@
             "error",
             4
         ],
-        "react/jsx-key": 2,
         "indent": [
             "error",
             4
