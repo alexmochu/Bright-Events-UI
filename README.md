@@ -1,7 +1,8 @@
- # Bright Events
+ # Bright Events UI
 
 > React front-end for [Bright Events](https://github.com/EdwardMudaida/Bright-Events).
 
+[![Build Status](https://travis-ci.org/EdwardMudaida/Bright-Events-UI.svg?branch=master)](https://travis-ci.org/EdwardMudaida/Bright-Events-UI)
 
 ## Install
 
