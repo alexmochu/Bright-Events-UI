@@ -2,7 +2,7 @@
 
 > React front-end for [Bright Events](https://github.com/EdwardMudaida/Bright-Events).
 
-[![Build Status](https://travis-ci.org/EdwardMudaida/Bright-Events-UI.svg?branch=master)](https://travis-ci.org/EdwardMudaida/Bright-Events-UI)
+[![Build Status](https://travis-ci.org/EdwardMudaida/Bright-Events-UI.svg?branch=master)](https://travis-ci.org/EdwardMudaida/Bright-Events-UI) [![Coverage Status](https://coveralls.io/repos/github/EdwardMudaida/Bright-Events-UI/badge.svg?branch=master)](https://coveralls.io/github/EdwardMudaida/Bright-Events-UI?branch=master)
 
 ## Install
 
