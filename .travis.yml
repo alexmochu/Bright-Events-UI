@@ -7,5 +7,4 @@ cache:
 script:
   - npm test
 after_success:
-  - COVERALLS_REPO_TOKEN=$coveralls_repo_token
-  - npm test -- --coverage | coveralls
+  - npm test -- --coverage 
