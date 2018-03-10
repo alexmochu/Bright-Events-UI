@@ -27,6 +27,7 @@ class Header extends Component {
             color='orange'
             active={activeItem === 'browse-events'}
             onClick={this.handleItemClick}
+            href='/events'
           >
             Browse Events
           </Menu.Item>
