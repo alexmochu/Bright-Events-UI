@@ -16,6 +16,7 @@ class Header extends Component {
           position='left'
           active={activeItem === 'home'}
           onClick={this.handleItemClick}
+          href='/'
         >
           <img src="http://pngimg.com/uploads/letter_b/letter_b_PNG13.png" alt="Home"/>
         </Menu.Item>
@@ -26,6 +27,7 @@ class Header extends Component {
             color='orange'
             active={activeItem === 'browse-events'}
             onClick={this.handleItemClick}
+            href='/events'
           >
             Browse Events
           </Menu.Item>
