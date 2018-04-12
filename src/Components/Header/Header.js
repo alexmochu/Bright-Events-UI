@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import * as actions from '../../actions/auth';
 
 class Header extends Component {
   state = {}
@@ -8,6 +12,7 @@ class Header extends Component {
 
   render() {
       const { activeItem } = this.state;
+      const { isAuthenticated, logout } = this.props;
 
       return (
           <Menu>
@@ -40,20 +45,40 @@ class Header extends Component {
                   >
             Create Events
                   </Menu.Item>
-
-                  <Menu.Item
-                      name='login'
-                      color='orange'
-                      active={activeItem === 'login'}
-                      onClick={this.handleItemClick}
-                      href='/login'
-                  >
-            Login
-                  </Menu.Item>
+                  { isAuthenticated?
+                      <Menu.Item
+                          name='logout'
+                          color='orange'
+                          onClick={() => logout()}
+                      >
+                  Logout
+                      </Menu.Item>
+                      :
+                      <Menu.Item
+                          name='login'
+                          color='orange'
+                          active={activeItem === 'login'}
+                          onClick={this.handleItemClick}
+                          href='/login'
+                      >
+                  Login
+                      </Menu.Item>
+                  }
               </Menu.Menu>
           </Menu>
       );
   }
 }
 
-export default Header;
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: !!state.user.auth_token
+    };
+}; 
+
+Header.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    logout: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps, { logout: actions.logout })(Header);
