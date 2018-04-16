@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import * as actions from '../../actions/auth';
 
 class Header extends Component {
   state = {}
@@ -7,52 +11,74 @@ class Header extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
-    const { activeItem } = this.state
+      const { activeItem } = this.state;
+      const { isAuthenticated, logout } = this.props;
 
-    return (
-      <Menu>
-        <Menu.Item
-          name='home'
-          position='left'
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-          href='/'
-        >
-          <img src="http://pngimg.com/uploads/letter_b/letter_b_PNG13.png" alt="Home"/>
-        </Menu.Item>
+      return (
+          <Menu>
+              <Menu.Item
+                  name='home'
+                  position='left'
+                  active={activeItem === 'home'}
+                  onClick={this.handleItemClick}
+                  href='/'
+              >
+                  <img src="http://pngimg.com/uploads/letter_b/letter_b_PNG13.png" alt="Home"/>
+              </Menu.Item>
 
-        <Menu.Menu position='right'>
-          <Menu.Item
-            name='browse-events'
-            color='orange'
-            active={activeItem === 'browse-events'}
-            onClick={this.handleItemClick}
-            href='/events'
-          >
+              <Menu.Menu position='right'>
+                  <Menu.Item
+                      name='browse-events'
+                      color='orange'
+                      active={activeItem === 'browse-events'}
+                      onClick={this.handleItemClick}
+                      href='/events'
+                  >
             Browse Events
-          </Menu.Item>
+                  </Menu.Item>
 
-          <Menu.Item
-            name='create-events'
-            color='orange'
-            active={activeItem === 'create-events'}
-            onClick={this.handleItemClick}
-          >
+                  <Menu.Item
+                      name='create-events'
+                      color='orange'
+                      active={activeItem === 'create-events'}
+                      onClick={this.handleItemClick}
+                  >
             Create Events
-          </Menu.Item>
-
-          <Menu.Item
-            name='sing-in'
-            color='orange'
-            active={activeItem === 'sing-in'}
-            onClick={this.handleItemClick}
-          >
-            Sign In
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
-    )
+                  </Menu.Item>
+                  { isAuthenticated?
+                      <Menu.Item
+                          name='logout'
+                          color='orange'
+                          onClick={() => logout()}
+                      >
+                  Logout
+                      </Menu.Item>
+                      :
+                      <Menu.Item
+                          name='login'
+                          color='orange'
+                          active={activeItem === 'login'}
+                          onClick={this.handleItemClick}
+                          href='/login'
+                      >
+                  Login
+                      </Menu.Item>
+                  }
+              </Menu.Menu>
+          </Menu>
+      );
   }
 }
 
-export default Header;
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: !!state.user.auth_token
+    };
+}; 
+
+Header.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    logout: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps, { logout: actions.logout })(Header);
