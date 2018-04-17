@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Card } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 
 import EventDetail from '../EventDetail/EventDetail';
 import client from '../../client';
