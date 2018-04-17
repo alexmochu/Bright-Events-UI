@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import Header from '../Header/Header';
 import Home from '../Home/Home';
 import ShowEvents from '../ShowEvents/ShowEvents';
+import EventItem from '../EventDetail/EventItem';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 
@@ -14,7 +16,8 @@ class App extends Component {
                 <div>
                     <Header/>
                     <Route path='/' component={Home} exact />
-                    <Route path='/events' component={ShowEvents} />
+                    <Route path='/events' component={ShowEvents} exact />
+                    <Route path='/events/:id' component={EventItem} />
                     <Route path='/login' component={Login} />
                     <Route path='/signup' component={Signup} />
                 </div>
