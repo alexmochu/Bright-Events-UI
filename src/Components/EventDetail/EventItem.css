@@ -1,0 +1,28 @@
+.event-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0.5px;
+}
+
+.event-details {
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 400;
+    letter-spacing: .5px;
+}
+
+.event-description {
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 400;
+    letter-spacing: .5px;
+}
+
+.ui.segments > .ui.segments {
+    border: none;
+}
+
+.event-category {
+    text-transform: capitalize;
+}

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Container, Card } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
 
+import EventDetail from '../EventDetail/EventDetail';
 import client from '../../client';
 import './ShowEvents.css';
 
@@ -23,13 +25,18 @@ export default class ShowEvents extends React.Component {
            <Container>
                <div>
                    {this.state.events.map(event =>
-                       <Card key={event.id}>
-                           <Card.Content className='event-title' header={event.title} />
-                           <Card.Content description={event.description} />
-                           <Card.Content extra>
-                               When: {event.date} | Where: {event.location}
-                           </Card.Content>
-                       </Card>
+                       <Link
+                           to={'/events/' + event.id}
+                           key={event.id}>
+                           <EventDetail
+                               title={event.title}
+                               description={event.description}
+                               date={event.date}
+                               location={event.location}
+                               category={event.category}
+                               id={event.id}
+                           />
+                       </Link>
                    )}
                </div>
            </Container>
