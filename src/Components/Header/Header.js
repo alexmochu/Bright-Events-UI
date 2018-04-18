@@ -3,6 +3,7 @@ import { Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import logo from '../../logo.png';
 import * as actions from '../../actions/auth';
 
 class Header extends Component {
@@ -23,7 +24,7 @@ class Header extends Component {
                   onClick={this.handleItemClick}
                   href='/'
               >
-                  <img src="http://pngimg.com/uploads/letter_b/letter_b_PNG13.png" alt="Home"/>
+                  <img src={logo} alt="Home"/>
               </Menu.Item>
 
               <Menu.Menu position='right'>
