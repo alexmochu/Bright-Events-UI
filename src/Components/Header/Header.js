@@ -43,6 +43,7 @@ class Header extends Component {
                       color='orange'
                       active={activeItem === 'create-events'}
                       onClick={this.handleItemClick}
+                      href='/event/new'
                   >
             Create Events
                   </Menu.Item>
