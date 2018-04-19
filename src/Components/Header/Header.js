@@ -45,7 +45,7 @@ class Header extends Component {
                       onClick={this.handleItemClick}
                       href='/event/new'
                   >
-            Create Events
+            Create Event
                   </Menu.Item>
                   { isAuthenticated?
                       <Menu.Item
