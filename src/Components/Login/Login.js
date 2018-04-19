@@ -9,7 +9,7 @@ import LoginForm from '../forms/LoginForm';
 
 class Login extends React.Component {
     submit = (data) =>
-        this.props.login(data).then(() => this.props.history.push('/'));
+        this.props.login(data).then(() => this.props.history.push('/event/new'));
     
     render() {
         document.title = 'Bright Events | Login';
