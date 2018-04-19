@@ -39,9 +39,9 @@ validate = (data) => {
 }
 
 render() {
-    const { data, errors } = this.state;
+    const { data, errors, loading } = this.state;
     return (
-        <Form onSubmit={this.onSubmit} className="login-form">
+        <Form onSubmit={this.onSubmit} className="login-form" loading={loading}>
             { errors.error && (
                 <Message negative>
                     <Message.Header>Something went wrong</Message.Header>

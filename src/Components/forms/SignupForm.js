@@ -42,16 +42,16 @@ validate = (data) => {
 }
 
 render() {
-    const { data, errors } = this.state;
+    const { data, errors, loading } = this.state;
     return (
-        <Form onSubmit={this.onSubmit} className="signup-form">
+        <Form onSubmit={this.onSubmit} className="signup-form" loading={loading}>
             { errors.error && (
                 <Message negative>
                     <Message.Header>Something went wrong</Message.Header>
                     <p>{errors.error}</p>
                 </Message>
             )}
-            <Form.Field error={!!errors.user_name}>
+            <Form.Field error={!!errors.user_name} required>
                 <label htmlFor="user_name">Username</label>
                 <input 
                     type="text"
@@ -63,7 +63,7 @@ render() {
                 />
                 {errors.user_name && <InlineError text={errors.user_name} />}
             </Form.Field>
-            <Form.Field error={!!errors.email}>
+            <Form.Field error={!!errors.email} required>
                 <label htmlFor="user_name">Email</label>
                 <input 
                     type="email"
@@ -75,7 +75,7 @@ render() {
                 />
                 {errors.email && <InlineError text={errors.email} />}
             </Form.Field>
-            <Form.Field error={!!errors.password}>
+            <Form.Field error={!!errors.password} required>
                 <label htmlFor="password">Password</label>
                 <input 
                     type="password" 
