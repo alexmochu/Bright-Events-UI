@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Label, Icon, Segment, Button } from 'semantic-ui-react';
+import { Container, Label, Segment, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import Loading from '../loading/Loading';
 import client from '../../client';
