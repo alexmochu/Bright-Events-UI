@@ -17,12 +17,20 @@ class EventItem extends Component{
         this.getEvent();
     }
 
-    getEvent(){
+    getEvent() {
         let eventId = this.props.match.params.id;
         client.get(`/events/${eventId}`)
             .then(res => {
                 this.setState({ eventDetails: res.data });
             });
+    }
+
+    deleteEvent() {
+        let eventId = this.props.match.params.id;
+        client.delete(`/events/${eventId}`)
+            .then(
+                () => this.props.history.push('/events')
+            );
     }
 
     render(){
@@ -54,7 +62,7 @@ class EventItem extends Component{
                                         </Button.Content>
                                     </Button>
                                     <Button icon='edit' content='Edit' />
-                                    <Button icon='delete' negative content='Delete' />
+                                    <Button icon='delete' negative content='Delete' onClick={() => this.deleteEvent()}/>
                                 </Segment>
                             </Segment.Group>
                             <Segment><Label horizontal><span className='event-category'>#{event.category}</span></Label></Segment>
@@ -67,7 +75,10 @@ class EventItem extends Component{
 }
 
 EventItem.propTypes = {
-    match: PropTypes.func.isRequired
+    match: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+    }).isRequired
 };
 
 export default EventItem;
