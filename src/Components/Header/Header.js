@@ -47,6 +47,15 @@ class Header extends Component {
                   >
             Create Event
                   </Menu.Item>
+                  <Menu.Item
+                      name='rsvp'
+                      color='orange'
+                      active={activeItem === 'create-events'}
+                      onClick={this.handleItemClick}
+                      href='/rsvp'
+                  >
+                  RSVP
+                  </Menu.Item>
                   { isAuthenticated?
                       <Menu.Item
                           name='logout'
