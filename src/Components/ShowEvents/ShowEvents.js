@@ -15,7 +15,6 @@ export default class ShowEvents extends React.Component {
 
    componentDidMount() {
        client.get('/events').then(res => {
-           console.log(res);
            this.setState({ events: res.data.events });
        });
    }
