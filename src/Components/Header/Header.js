@@ -16,7 +16,7 @@ class Header extends Component {
       const { isAuthenticated, logout } = this.props;
 
       return (
-          <Menu>
+          <Menu fixed='top'>
               <Menu.Item
                   name='home'
                   position='left'
