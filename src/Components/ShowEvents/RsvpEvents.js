@@ -25,7 +25,7 @@ class RsvpEvents extends React.Component {
 
    render() {
        return(
-           <Container>
+           <Container style={{ marginTop: '7em' }}>
                <div>
                    {this.state.events.map(event =>
                        <Link

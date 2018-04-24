@@ -54,7 +54,7 @@ render() {
                     type="text"
                     id="user_name" 
                     name="user_name" 
-                    placeholder="eg Rick Sanchez" 
+                    placeholder="Rick Sanchez" 
                     value={data.user_name} 
                     onChange={this.onChange}
                 />
@@ -66,13 +66,13 @@ render() {
                     type="password" 
                     name="password" 
                     id="password" 
-                    placeholder="atleast 8 characters" 
+                    placeholder="grassisbad" 
                     value={data.password}
                     onChange={this.onChange}
                 />
                 {errors.password && <InlineError text={errors.password} />}
             </Form.Field>
-            <Button ui button>Submit</Button>
+            <Button ui button >Submit</Button>
             <p>Don't have an account? <a href="/signup">Sign Up</a></p>
         </Form>
     );
