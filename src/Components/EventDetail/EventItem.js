@@ -76,10 +76,10 @@ class EventItem extends Component{
                                 </Segment>
                                 <Segment><h4 className='event-details'>Where: {event.location}</h4></Segment>
                                 <Segment>
-                                    <Button compact color='green' size='large' content={ this.state.rsvpbtnContent } onClick={() => this.rsvpEvent()}/>
-                                    <Button icon='edit' content='EDIT'/>
-                                    <Button icon='delete' negative content='DELETE' onClick={() => this.deleteEvent()}/>
-                                    <Button negative content={ this.state.removersvpbtnContent }  onClick={() => this.removeRsvp()}/>
+                                    <Button compact positive basic size='large' content={ this.state.rsvpbtnContent } onClick={() => this.rsvpEvent()}/>
+                                    <Button icon='edit' color='black' basic content='EDIT'/>
+                                    <Button icon='delete' basic negative content='DELETE' onClick={() => this.deleteEvent()}/>
+                                    <Button negative basic content={ this.state.removersvpbtnContent }  onClick={() => this.removeRsvp()}/>
                                 </Segment>
                             </Segment.Group>
                             <Segment><Label horizontal><span className='event-category'>#{event.category}</span></Label></Segment>
