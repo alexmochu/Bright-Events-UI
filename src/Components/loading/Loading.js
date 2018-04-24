@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Message, Icon } from 'semantic-ui-react';
 
 export default ()=>
-    <Container>
+    <Container text style={{ marginTop: '7em' }}>
         <br/>
         <Message icon>
             <Icon name='circle notched' loading />
