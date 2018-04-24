@@ -11,7 +11,8 @@ class EventItem extends Component{
         super(props);
         this.state = {
             eventDetails: {},
-            rsvpbtnContent: 'RSVP'
+            rsvpbtnContent: 'RSVP',
+            removersvpbtnContent: 'REMOVE RSVP'
         };
     }
 
@@ -44,6 +45,15 @@ class EventItem extends Component{
             );
     }
 
+    removeRsvp(){
+        let eventId = this.props.match.params.id;
+        client.delete(`/events/${eventId}/rsvp`)
+            .then(
+                () => this.props.history.push(`/events/${eventId}/`),
+                this.setState({ removersvpbtnContent: 'RSVP REMOVED'})
+            );
+    }
+
     render(){
         const  event  = this.state.eventDetails.event;
         if (!this.state.eventDetails.event){
@@ -51,7 +61,7 @@ class EventItem extends Component{
         }
         return(
             <div>
-                <Container>
+                <Container style={{ marginTop: '7em' }}>
                     <div>
                         <br/>
                         <Segment.Group raised>
@@ -67,8 +77,9 @@ class EventItem extends Component{
                                 <Segment><h4 className='event-details'>Where: {event.location}</h4></Segment>
                                 <Segment>
                                     <Button compact color='green' size='large' content={ this.state.rsvpbtnContent } onClick={() => this.rsvpEvent()}/>
-                                    <Button icon='edit' content='Edit'/>
-                                    <Button icon='delete' negative content='Delete' onClick={() => this.deleteEvent()}/>
+                                    <Button icon='edit' content='EDIT'/>
+                                    <Button icon='delete' negative content='DELETE' onClick={() => this.deleteEvent()}/>
+                                    <Button negative content={ this.state.removersvpbtnContent }  onClick={() => this.removeRsvp()}/>
                                 </Segment>
                             </Segment.Group>
                             <Segment><Label horizontal><span className='event-category'>#{event.category}</span></Label></Segment>
