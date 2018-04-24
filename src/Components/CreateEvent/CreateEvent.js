@@ -14,8 +14,8 @@ class CreateEvent extends React.Component {
     render() {
         document.title = 'Bright Events | Create Event';
         return (
-            <div>
-                <Container>
+            <div style={{ marginTop: '7em' }}>
+                <Container text>
                     <h1>Create Event</h1>
                     <CreateEventForm submit={this.submit}/>
                 </Container>
