@@ -18,15 +18,14 @@ class RsvpEvents extends React.Component {
        const { currentUserId } = this.props;
        let userId = currentUserId?currentUserId:''; 
        client.get(`/user/${userId}/rsvp`).then(res => {
-           console.log(res);
            this.setState({ events: res.data.events });
        });
    }
 
    render() {
        return(
-           <Container style={{ marginTop: '7em' }}>
-               <div>
+           <Container>
+               <div style={{ marginTop: '7em' }}>
                    {this.state.events.map(event =>
                        <Link
                            to={'/events/' + event.id}
