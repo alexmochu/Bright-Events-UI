@@ -16,7 +16,7 @@ class Header extends Component {
       const { isAuthenticated, logout } = this.props;
 
       return (
-          <Menu>
+          <Menu fixed='top'>
               <Menu.Item
                   name='home'
                   position='left'
@@ -46,6 +46,15 @@ class Header extends Component {
                       href='/event/new'
                   >
             Create Event
+                  </Menu.Item>
+                  <Menu.Item
+                      name='rsvp'
+                      color='orange'
+                      active={activeItem === 'create-events'}
+                      onClick={this.handleItemClick}
+                      href='/rsvp'
+                  >
+                  RSVP
                   </Menu.Item>
                   { isAuthenticated?
                       <Menu.Item

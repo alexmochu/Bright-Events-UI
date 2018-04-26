@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Label, Segment, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+
 import Loading from '../loading/Loading';
 import client from '../../client';
 import './EventItem.css';
@@ -9,7 +10,9 @@ class EventItem extends Component{
     constructor(props){
         super(props);
         this.state = {
-            eventDetails: {}
+            eventDetails: {},
+            rsvpbtnContent: 'RSVP',
+            removersvpbtnContent: 'REMOVE RSVP'
         };
     }
 
@@ -37,7 +40,17 @@ class EventItem extends Component{
         let eventId = this.props.match.params.id;
         client.post(`/events/${eventId}/rsvp`)
             .then(
-                () => this.props.history.push(`/events/${eventId}/`)
+                () => this.props.history.push('/rsvp'),
+                this.setState({ rsvpbtnContent: 'Reserved'})
+            );
+    }
+
+    removeRsvp(){
+        let eventId = this.props.match.params.id;
+        client.delete(`/events/${eventId}/rsvp`)
+            .then(
+                () => this.props.history.push('/rsvp'),
+                this.setState({ removersvpbtnContent: 'RSVP REMOVED'})
             );
     }
 
@@ -48,7 +61,7 @@ class EventItem extends Component{
         }
         return(
             <div>
-                <Container>
+                <Container style={{ marginTop: '7em' }}>
                     <div>
                         <br/>
                         <Segment.Group raised>
@@ -63,9 +76,10 @@ class EventItem extends Component{
                                 </Segment>
                                 <Segment><h4 className='event-details'>Where: {event.location}</h4></Segment>
                                 <Segment>
-                                    <Button compact color='green' size='large' onClick={() => this.rsvpEvent()}>RSVP</Button>
-                                    <Button icon='edit' content='Edit'/>
-                                    <Button icon='delete' negative content='Delete' onClick={() => this.deleteEvent()}/>
+                                    <Button compact positive basic size='large' content={ this.state.rsvpbtnContent } onClick={() => this.rsvpEvent()}/>
+                                    <Button icon='edit' color='black' basic content='EDIT'/>
+                                    <Button icon='delete' basic negative content='DELETE' onClick={() => this.deleteEvent()}/>
+                                    <Button negative basic content={ this.state.removersvpbtnContent }  onClick={() => this.removeRsvp()}/>
                                 </Segment>
                             </Segment.Group>
                             <Segment><Label horizontal><span className='event-category'>#{event.category}</span></Label></Segment>

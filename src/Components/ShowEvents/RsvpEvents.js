@@ -1,28 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import EventDetail from '../EventDetail/EventDetail';
 import client from '../../client';
-import './ShowEvents.css';
 
 document.title = 'Bright Events | Events';
 
-export default class ShowEvents extends React.Component {
+class RsvpEvents extends React.Component {
    state = {
-       events: [],
+       events: []
    };
 
    componentDidMount() {
-       client.get('/events').then(res => {
+       const { currentUserId } = this.props;
+       let userId = currentUserId?currentUserId:''; 
+       client.get(`/user/${userId}/rsvp`).then(res => {
            this.setState({ events: res.data.events });
        });
    }
 
    render() {
        return(
-           <Container style={{ marginTop: '7em' }}>
-               <div>
+           <Container>
+               <div style={{ marginTop: '7em' }}>
                    {this.state.events.map(event =>
                        <Link
                            to={'/events/' + event.id}
@@ -42,3 +45,13 @@ export default class ShowEvents extends React.Component {
        );
    }
 }
+
+const mapStateToProps = state =>({
+    currentUserId: state.auth.user.sub
+});
+
+RsvpEvents.propTypes = {
+    currentUserId: PropTypes.number.isRequired
+};
+
+export default connect(mapStateToProps)(RsvpEvents);

@@ -15,7 +15,7 @@ class Login extends React.Component {
         document.title = 'Bright Events | Login';
         return (
             <div>
-                <Container>
+                <Container text style={{ marginTop: '7em' }}>
                     <h1>Login</h1>
                     <LoginForm submit={this.submit}/>
                 </Container>

@@ -13,8 +13,8 @@ class Signup extends React.Component {
     render() {
         document.title = 'Bright Events | Signup';
         return (
-            <div>
-                <Container>
+            <div style={{ marginTop: '7em' }}>
+                <Container text>
                     <h1>Signup</h1>
                     <SignupForm submit={this.submit} />
                 </Container>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import './Home.css';
 
 function Home() {
@@ -7,7 +7,14 @@ function Home() {
     return (
         <div className="index-container center">
             <h1>plan your next event.</h1>
-            <Button color="orange">GET STARTED</Button>
+            <a href='/event/new'>
+                <Button animated color="orange">
+                    <Button.Content visible>GET STARTED</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='right arrow' />
+                    </Button.Content>
+                </Button>
+            </a>
         </div>
     );
 }
