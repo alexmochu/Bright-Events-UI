@@ -40,7 +40,7 @@ class EventItem extends Component{
         let eventId = this.props.match.params.id;
         client.post(`/events/${eventId}/rsvp`)
             .then(
-                () => this.props.history.push(`/events/${eventId}/`),
+                () => this.props.history.push('/rsvp'),
                 this.setState({ rsvpbtnContent: 'Reserved'})
             );
     }
@@ -49,7 +49,7 @@ class EventItem extends Component{
         let eventId = this.props.match.params.id;
         client.delete(`/events/${eventId}/rsvp`)
             .then(
-                () => this.props.history.push(`/events/${eventId}/`),
+                () => this.props.history.push('/rsvp'),
                 this.setState({ removersvpbtnContent: 'RSVP REMOVED'})
             );
     }
