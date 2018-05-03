@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { Container, Label, Segment, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Loading from '../loading/Loading';
 import client from '../../client';
 import './EventItem.css';
 
+document.title = 'Bright Events | Event';
+ 
 class EventItem extends Component{
     constructor(props){
         super(props);
@@ -55,6 +59,7 @@ class EventItem extends Component{
     }
 
     render(){
+        const { currentUserId } = this.props;
         const  event  = this.state.eventDetails.event;
         if (!this.state.eventDetails.event){
             return <Loading/>;
@@ -77,8 +82,16 @@ class EventItem extends Component{
                                 <Segment><h4 className='event-details'>Where: {event.location}</h4></Segment>
                                 <Segment>
                                     <Button compact positive basic size='large' content={ this.state.rsvpbtnContent } onClick={() => this.rsvpEvent()}/>
-                                    <Button icon='edit' color='black' basic content='EDIT'/>
-                                    <Button icon='delete' basic negative content='DELETE' onClick={() => this.deleteEvent()}/>
+                                    { currentUserId === event.user_id?
+                                        <div>
+                                            <Link to={'/edit/events/' + event.id}>
+                                                <Button icon='edit' color='black' basic content='EDIT'/>
+                                            </Link>
+                                            <Button icon='delete' basic negative content='DELETE' onClick={() => this.deleteEvent()}/>
+                                        </div>
+                                        :
+                                        ''
+                                    }
                                     <Button negative basic content={ this.state.removersvpbtnContent }  onClick={() => this.removeRsvp()}/>
                                 </Segment>
                             </Segment.Group>
@@ -95,7 +108,13 @@ EventItem.propTypes = {
     match: PropTypes.func.isRequired,
     history: PropTypes.shape({
         push: PropTypes.func.isRequired
-    }).isRequired
+    }).isRequired,
+    currentUserId: PropTypes.number.isRequired
 };
 
-export default EventItem;
+const mapStateToProps = state =>({
+    currentUserId: state.auth.user.sub
+});
+
+
+export default connect(mapStateToProps)(EventItem);
