@@ -13,8 +13,8 @@ class Header extends Component {
 
   render() {
       const { activeItem } = this.state;
-      const { isAuthenticated, logout } = this.props;
-
+      const { isAuthenticated, logout, currentUserId } = this.props;
+      let userId = currentUserId?currentUserId:''; 
       return (
           <Menu fixed='top'>
               <Menu.Item
@@ -50,11 +50,20 @@ class Header extends Component {
                   <Menu.Item
                       name='rsvp'
                       color='orange'
-                      active={activeItem === 'create-events'}
+                      active={activeItem === 'rsvp'}
                       onClick={this.handleItemClick}
                       href='/rsvp'
                   >
                   RSVP
+                  </Menu.Item>
+                  <Menu.Item
+                      name='my-events'
+                      color='orange'
+                      active={activeItem === 'my-events'}
+                      onClick={this.handleItemClick}
+                      href={`/user/${userId}/events`}
+                  >
+                  My Events
                   </Menu.Item>
                   { isAuthenticated?
                       <Menu.Item
@@ -83,13 +92,15 @@ class Header extends Component {
 
 function mapStateToProps(state) {
     return {
-        isAuthenticated: !!state.user.auth_token
+        isAuthenticated: !!state.user.auth_token,
+        currentUserId: state.auth.user.sub
     };
 }; 
 
 Header.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    logout: PropTypes.func.isRequired
+    logout: PropTypes.func.isRequired,
+    currentUserId: PropTypes.number.isRequired
 };
 
 export default connect(mapStateToProps, { logout: actions.logout })(Header);
