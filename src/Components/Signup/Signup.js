@@ -8,7 +8,7 @@ import { signup } from '../../actions/user';
 
 
 class Signup extends React.Component {
-    submit = data => this.props.signup(data).then(() => this.props.history.push('/events'));
+    submit = data => this.props.signup(data).then(() => this.props.history.push('/login'));
     
     render() {
         document.title = 'Bright Events | Signup';
