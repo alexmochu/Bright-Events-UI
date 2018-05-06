@@ -28,6 +28,9 @@ export const login = (credentials) => dispatch =>
     });
 
 export const logout = () => dispatch => {
-    localStorage.removeItem('JWT');
-    dispatch(userLoggedOut());
+    api.user.logout().then(user => {
+        localStorage.removeItem('JWT');
+        dispatch(userLoggedOut());
+        window.location = '/login';
+    });
 };
