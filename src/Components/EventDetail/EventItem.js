@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Label, Segment, Button } from 'semantic-ui-react';
+import { Container, Label, Segment, Button, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import Loading from '../loading/Loading';
@@ -12,12 +12,14 @@ class EventItem extends Component{
         this.state = {
             eventDetails: {},
             rsvpbtnContent: 'RSVP',
-            removersvpbtnContent: 'REMOVE RSVP'
+            removersvpbtnContent: 'REMOVE RSVP',
+            guests: []
         };
     }
 
     componentWillMount = () => {
         this.getEvent();
+        this.getGuests();
     }
 
     getEvent() {
@@ -40,22 +42,29 @@ class EventItem extends Component{
         let eventId = this.props.match.params.id;
         client.post(`/events/${eventId}/rsvp`)
             .then(
-                () => this.props.history.push('/rsvp'),
                 this.setState({ rsvpbtnContent: 'Reserved'})
             );
     }
 
-    removeRsvp(){
+    removeRsvp() {
         let eventId = this.props.match.params.id;
         client.delete(`/events/${eventId}/rsvp`)
             .then(
-                () => this.props.history.push('/rsvp'),
                 this.setState({ removersvpbtnContent: 'RSVP REMOVED'})
             );
     }
 
+    getGuests() {
+        let eventId = this.props.match.params.id;
+        client.get(`/events/${eventId}/rsvp`)
+            .then(res => {
+                this.setState({ guests: res.data.guests });
+            });
+    }
+
     render(){
-        const  event  = this.state.eventDetails.event;
+        const event = this.state.eventDetails.event;
+        const guests = this.state.guests;
         if (!this.state.eventDetails.event){
             return <Loading/>;
         }
@@ -85,6 +94,25 @@ class EventItem extends Component{
                             <Segment><Label horizontal><span className='event-category'>#{event.category}</span></Label></Segment>
                         </Segment.Group>
                     </div>
+                    <Container className='guests-container'>
+                        <h2 className='center guests-h1'>GUESTS</h2>
+                        <Table color='orange'>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Username</Table.HeaderCell>
+                                    <Table.HeaderCell>Email</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            {guests.map(guest =>
+                                <Table.Body key={guest.id}>
+                                    <Table.Row>
+                                        <Table.Cell>{guest.user_name}</Table.Cell>
+                                        <Table.Cell>{guest.email}</Table.Cell>
+                                    </Table.Row>
+                                </Table.Body>
+                            )}
+                        </Table>
+                    </Container>
                 </Container>
             </div>
         );
@@ -92,7 +120,7 @@ class EventItem extends Component{
 }
 
 EventItem.propTypes = {
-    match: PropTypes.func.isRequired,
+    match: PropTypes.object.isRequired,
     history: PropTypes.shape({
         push: PropTypes.func.isRequired
     }).isRequired

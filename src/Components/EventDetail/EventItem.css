@@ -26,3 +26,15 @@
 .event-category {
     text-transform: capitalize;
 }
+
+.center {
+    text-align: center;
+}
+
+.guests-container {
+    margin-top: 5%;
+}
+
+.guests-h1 {
+    padding-bottom: 1%;
+}
