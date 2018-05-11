@@ -54,7 +54,7 @@ class EventItem extends Component{
         client.post(`/events/${eventId}/rsvp`)
             .then(res => {
                 this.setState({ 'rsvpd': res.data });
-                this.setState({ rsvpbtnContent: 'Reserved' }),
+                this.setState({ rsvpbtnContent: 'Reserved' });
                 console.log('STATE', this.state);
             },
             );
