@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 import logo from '../../logo.png';
 import * as actions from '../../actions/auth';
+import './Header.css';
+
 
 class Header extends Component {
   state = {}
@@ -35,7 +37,7 @@ class Header extends Component {
                       onClick={this.handleItemClick}
                       href='/events'
                   >
-            Browse Events
+            browse events
                   </Menu.Item>
 
                   <Menu.Item
@@ -45,7 +47,7 @@ class Header extends Component {
                       onClick={this.handleItemClick}
                       href='/event/new'
                   >
-            Create Event
+            create event
                   </Menu.Item>
                   <Menu.Item
                       name='rsvp'
@@ -54,7 +56,7 @@ class Header extends Component {
                       onClick={this.handleItemClick}
                       href='/rsvp'
                   >
-                  RSVP
+                  rsvp'd events
                   </Menu.Item>
                   <Menu.Item
                       name='my-events'
@@ -63,7 +65,16 @@ class Header extends Component {
                       onClick={this.handleItemClick}
                       href={`/user/${userId}/events`}
                   >
-                  My Events
+                  my events
+                  </Menu.Item>
+                  <Menu.Item
+                      name='search-events'
+                      color='orange'
+                      active={activeItem === 'search-events'}
+                      onClick={this.handleItemClick}
+                      href={'/search/events'}
+                  >
+                search events
                   </Menu.Item>
                   { isAuthenticated?
                       <Menu.Item
@@ -71,7 +82,7 @@ class Header extends Component {
                           color='orange'
                           onClick={() => logout()}
                       >
-                  Logout
+                  logout
                       </Menu.Item>
                       :
                       <Menu.Item
@@ -81,7 +92,7 @@ class Header extends Component {
                           onClick={this.handleItemClick}
                           href='/login'
                       >
-                  Login
+                  login
                       </Menu.Item>
                   }
               </Menu.Menu>
