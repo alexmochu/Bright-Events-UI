@@ -3,6 +3,7 @@ import { Container, Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import client from '../../client';
+import './EventDetail.css';
 
 document.title = 'Bright Events | Event';
 
@@ -12,16 +13,16 @@ function EventDetail(props) {
         this.setState({ event: res.data.event });
     });
     return(
-        <Container>
-            <div>
+        <Container text>
+            <div className='event-detail'>
                 <br/>
-                <Card>
-                    <Card.Content className='event-title' header={props.title} />
-                    <Card.Content description={props.description} />
-                    <Card.Content extra>
-                        When: {props.date} | Where: {props.location}
-                    </Card.Content>
-                </Card>
+                <Card
+                    fluid
+                    link
+                    header={props.title}
+                    meta={props.date}
+                    description={props.description}
+                />
             </div>
         </Container>
     );

@@ -1,40 +1,25 @@
-.event-title {
-    text-transform: uppercase;
-    font-weight: 600;
-    line-height: 30px;
-    letter-spacing: 0.5px;
-}
-
-.event-details {
-    font-size: 15px;
-    line-height: 22px;
-    font-weight: 400;
-    letter-spacing: .5px;
-}
-
-.event-description {
-    font-size: 15px;
-    line-height: 22px;
-    font-weight: 400;
-    letter-spacing: .5px;
-}
-
-.ui.segments > .ui.segments {
-    border: none;
-}
-
-.event-category {
+.event-details h1 {
+    font-size: 55px;
+    font-weight: 500;
     text-transform: capitalize;
 }
 
-.center {
-    text-align: center;
+.event-details h3 {
+    color: grey;
+    font-weight: 400;
 }
 
-.guests-container {
-    margin-top: 5%;
+.event-details p {
+    font-size: 16px;
+    line-height: 1.5;
 }
 
-.guests-h1 {
-    padding-bottom: 1%;
+.event-category {
+    padding-top: 2%;
+}
+
+.event-category h5 {
+    text-transform: capitalize;
+    padding-top: 5%;
+    font-size: 12px;
 }
