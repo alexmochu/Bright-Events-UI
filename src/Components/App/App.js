@@ -10,7 +10,8 @@ import Signup from '../Signup/Signup';
 import CreateEvent from '../CreateEvent/CreateEvent';
 import RsvpEvents from '../ShowEvents/RsvpEvents';
 import MyEvents from '../ShowEvents/MyEvents';
-
+import SearchEvents from '../SearchEvents/SearchEvents';
+;
 
 class App extends Component {
     render() {
@@ -26,6 +27,7 @@ class App extends Component {
                     <Route path='/signup' component={Signup} />
                     <Route path='/rsvp' component={RsvpEvents} />
                     <Route path='/user/:id/events' component={MyEvents} />
+                    <Route path='/search/events' component={SearchEvents} />
                 </div>
             </Router>
         );
