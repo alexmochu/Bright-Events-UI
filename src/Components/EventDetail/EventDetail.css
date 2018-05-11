@@ -1,0 +1,3 @@
+.event-detail .ui.card > .content > .header:not(.ui), .ui.cards > .card > .content > .header:not(.ui) {
+        text-transform: capitalize;
+}

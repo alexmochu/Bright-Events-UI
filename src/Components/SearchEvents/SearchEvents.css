@@ -1,0 +1,20 @@
+.event-title {
+    text-transform: capitalize;
+}
+
+.searched-events-header {
+    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/935787/pexels-photo-935787.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 250px;
+}
+
+.searched-events-header h1 {
+    padding-top: 8.5%;
+    font-size: 50px;
+    color: white;
+    font-weight: 100;
+    font-family: 'Quicksand', sans-serif;
+}
