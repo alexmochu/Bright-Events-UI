@@ -59,6 +59,15 @@ class Header extends Component {
                   rsvp'd events
                   </Menu.Item>
                   <Menu.Item
+                      name='reset-password'
+                      color='orange'
+                      active={activeItem === 'reset-password'}
+                      onClick={this.handleItemClick}
+                      href='/reset-password'
+                  >
+                  reset password
+                  </Menu.Item>
+                  <Menu.Item
                       name='my-events'
                       color='orange'
                       active={activeItem === 'my-events'}
