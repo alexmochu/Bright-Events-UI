@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Label, Button, Image, List  } from 'semantic-ui-react';
+import { Container, Label, Button, Image, List, Icon  } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -54,8 +54,8 @@ class EventItem extends Component{
         client.post(`/events/${eventId}/rsvp`)
             .then(res => {
                 this.setState({ 'rsvpd': res.data });
-                this.setState({ rsvpbtnContent: 'Reserved' });
-                console.log('STATE', this.state);
+                this.setState({ rsvpbtnContent: 'RESERVED' });
+                window.location.reload();
             },
             );
     }
@@ -64,7 +64,8 @@ class EventItem extends Component{
         let eventId = this.props.match.params.id;
         client.delete(`/events/${eventId}/rsvp`)
             .then(
-                this.setState({ removersvpbtnContent: 'RSVP REMOVED' })
+                this.setState({ removersvpbtnContent: 'RSVP REMOVED' }),
+                window.location.reload(),
             );
     }
 
@@ -85,12 +86,12 @@ class EventItem extends Component{
         }
         return(
             <div>
-                <Container style={{ marginTop: '4em' }}>
+                <Container style={{ marginTop: '2em' }}>
                     <div className='event-details'>
                         <br/>
                         <h3>{event.date}</h3>
                         <h1>{event.title}</h1>
-                        <p>{event.description}</p>
+                        <p className='event_description'>{event.description}</p>
                         <p>{event.location}</p> 
                         <p>{event.time}</p>
                         { this.state.rsvpd.message === 'True'?
@@ -111,9 +112,14 @@ class EventItem extends Component{
                             <Label basic color='black' size='small'><h5>#{event.category}</h5></Label>
                         </div>
                     </div>
-                    <Container className='guests-container' style={{ marginTop: '4em' }} floated='left'>
-                        <h3>GUESTS</h3>
-                        <List horizontal ordered>
+
+                    <h3>HOST</h3>
+                    <p><Icon name='user outline'/>{event.host_name}</p>
+                    <p><Icon name='mail outline'/>{event.host_email}</p>
+
+                    <Container className='guests-container' style={{ marginTop: '4em' }}>
+                        <h3>GUESTS ({event.guests})</h3>
+                        <List horizontal>
                             {guests.map(guest =>
                                 <List.Item key={guest.id}>
                                     <Image avatar src={userImage} />

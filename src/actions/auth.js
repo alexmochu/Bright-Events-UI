@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import { USER_LOGGED_IN, USER_LOGGED_OUT, SET_CURRENT_USER } from '../types';
+import { USER_LOGGED_IN, USER_LOGGED_OUT, SET_CURRENT_USER, PASSWORD_RESET } from '../types';
 import api from '../api';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -15,6 +15,11 @@ export const userLoggedOut = () => ({
 
 export const setCurrentUser = user => ({
     type: SET_CURRENT_USER,
+    user
+});
+
+export const passwordReset = user => ({
+    type: PASSWORD_RESET,
     user
 });
 
@@ -34,3 +39,8 @@ export const logout = () => dispatch => {
         window.location = '/login';
     });
 };
+
+export const resetPassword = (data) => dispatch => 
+    api.user.resetPassword(data).then(user => {
+        dispatch(passwordReset);
+    });

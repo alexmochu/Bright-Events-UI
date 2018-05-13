@@ -23,3 +23,7 @@
     padding-top: 5%;
     font-size: 12px;
 }
+
+.event_description {
+    width: 50%;
+}
