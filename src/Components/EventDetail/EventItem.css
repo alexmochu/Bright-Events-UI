@@ -1,28 +1,29 @@
-.event-title {
-    text-transform: uppercase;
-    font-weight: 600;
-    line-height: 30px;
-    letter-spacing: 0.5px;
+.event-details h1 {
+    font-size: 55px;
+    font-weight: 500;
+    text-transform: capitalize;
 }
 
-.event-details {
-    font-size: 15px;
-    line-height: 22px;
+.event-details h3 {
+    color: grey;
     font-weight: 400;
-    letter-spacing: .5px;
 }
 
-.event-description {
-    font-size: 15px;
-    line-height: 22px;
-    font-weight: 400;
-    letter-spacing: .5px;
-}
-
-.ui.segments > .ui.segments {
-    border: none;
+.event-details p {
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 .event-category {
+    padding-top: 2%;
+}
+
+.event-category h5 {
     text-transform: capitalize;
+    padding-top: 5%;
+    font-size: 12px;
+}
+
+.event_description {
+    width: 50%;
 }

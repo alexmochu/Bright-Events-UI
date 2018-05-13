@@ -24,24 +24,29 @@ class RsvpEvents extends React.Component {
 
    render() {
        return(
-           <Container>
-               <div style={{ marginTop: '7em' }}>
-                   {this.state.events.map(event =>
-                       <Link
-                           to={'/events/' + event.id}
-                           key={event.id}>
-                           <EventDetail
-                               title={event.title}
-                               description={event.description}
-                               date={event.date}
-                               location={event.location}
-                               category={event.category}
-                               id={event.id}
-                           />
-                       </Link>
-                   )}
-               </div>
-           </Container>
+           <div>
+               <header class="rsvp-events-header">
+                   <h1 class="center">RSVP'd Events</h1>
+               </header>
+               <Container>
+                   <div style={{ marginTop: '1.5em' }}>
+                       {this.state.events.map(event =>
+                           <Link
+                               to={'/events/' + event.id}
+                               key={event.id}>
+                               <EventDetail
+                                   title={event.title}
+                                   description={event.description}
+                                   date={event.date}
+                                   location={event.location}
+                                   category={event.category}
+                                   id={event.id}
+                               />
+                           </Link>
+                       )}
+                   </div>
+               </Container>
+           </div>
        );
    }
 }
