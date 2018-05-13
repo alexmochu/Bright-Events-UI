@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card } from 'semantic-ui-react';
+import { Container, Card, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import client from '../../client';
@@ -16,13 +16,17 @@ function EventDetail(props) {
         <Container text>
             <div className='event-detail'>
                 <br/>
-                <Card
-                    fluid
-                    link
-                    header={props.title}
-                    meta={props.date}
-                    description={props.description}
-                />
+                <Card fluid>
+                    <Card.Content>
+                        <Card.Header content={props.title} />
+                        <Card.Meta content={props.date} />
+                        <Card.Description content={props.description} />
+                    </Card.Content>
+                    <Card.Content extra>
+                        <Icon name='user' />
+                        {props.guests} Attending
+                    </Card.Content>
+                </Card> 
             </div>
         </Container>
     );
@@ -32,7 +36,8 @@ EventDetail.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     date: PropTypes.string,
-    location: PropTypes.string
+    location: PropTypes.string,
+    guests: PropTypes.string,
 };
 
 export default EventDetail;

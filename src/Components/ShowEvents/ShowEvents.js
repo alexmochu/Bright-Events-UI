@@ -38,6 +38,7 @@ export default class ShowEvents extends React.Component {
                                     location={event.location}
                                     category={event.category}
                                     id={event.id}
+                                    guests={event.guests}
                                 />
                             </Link>
                         )}
