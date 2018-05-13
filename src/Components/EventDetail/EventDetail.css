@@ -1,0 +1,7 @@
+.event-detail .ui.card > .content > .header:not(.ui), .ui.cards > .card > .content > .header:not(.ui) {
+        text-transform: capitalize;
+}
+
+.event-description {
+        color: rgba(0,0,0,.68);
+}

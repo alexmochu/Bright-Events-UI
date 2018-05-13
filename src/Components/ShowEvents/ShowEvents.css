@@ -1,3 +1,54 @@
 .event-title {
     text-transform: capitalize;
 }
+
+.events-header {
+    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/796607/pexels-photo-796607.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 250px;
+}
+
+.events-header h1 {
+    padding-top: 8.5%;
+    font-size: 50px;
+    color: white;
+    font-weight: 100;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.rsvp-events-header {
+    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/325526/pexels-photo-325526.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 250px;
+}
+
+.rsvp-events-header h1 {
+    padding-top: 8.5%;
+    font-size: 50px;
+    color: white;
+    font-weight: 100;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.my-events-header {
+    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/827058/pexels-photo-827058.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 250px;
+}
+
+.my-events-header h1 {
+    padding-top: 8.5%;
+    font-size: 50px;
+    color: white;
+    font-weight: 100;
+    font-family: 'Quicksand', sans-serif;
+}

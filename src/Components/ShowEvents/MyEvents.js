@@ -1,29 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 import EventDetail from '../EventDetail/EventDetail';
 import client from '../../client';
 import './ShowEvents.css';
 
 
-export default class ShowEvents extends React.Component {
+export default class MyEvents extends React.Component {
     state = {
         events: [],
     };
     
     componentDidMount() {
-        client.get('/events').then(res => {
+        let userId = this.props.match.params.id;
+        client.get(`/${userId}/events`).then(res => {
             this.setState({ events: res.data.events });
         });
     }
     
     render() {
-        document.title = 'Bright Events | Events';
+        document.title = 'Bright Events | My Events';
         return(
             <div>
-                <header class="events-header">
-                    <h1 class="center">Events</h1>
+                <header class="my-events-header">
+                    <h1 class="center">My Events</h1>
                 </header>
                 <Container style={{ marginTop: '1.5em' }}>
                     <div>
@@ -38,7 +40,6 @@ export default class ShowEvents extends React.Component {
                                     location={event.location}
                                     category={event.category}
                                     id={event.id}
-                                    guests={event.guests}
                                 />
                             </Link>
                         )}
@@ -48,3 +49,7 @@ export default class ShowEvents extends React.Component {
         );
     }
 }
+
+MyEvents.propTypes = {
+    match: PropTypes.object.isRequired    
+};

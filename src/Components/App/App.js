@@ -10,6 +10,10 @@ import Signup from '../Signup/Signup';
 import CreateEvent from '../CreateEvent/CreateEvent';
 import RsvpEvents from '../ShowEvents/RsvpEvents';
 import EditEvent from '../EditEvent/EditEvent';
+import MyEvents from '../ShowEvents/MyEvents';
+import SearchEvents from '../SearchEvents/SearchEvents';
+import ResetPassword from '../ResetPassword/ResetPassword';
+
 
 class App extends Component {
     render() {
@@ -25,6 +29,9 @@ class App extends Component {
                     <Route path='/signup' component={Signup} />
                     <Route path='/rsvp' component={RsvpEvents} />
                     <Route path='/edit/events/:id' component={EditEvent} />
+                    <Route path='/user/:id/events' component={MyEvents} />
+                    <Route path='/search/events' component={SearchEvents} />
+                    <Route path='/reset-password' component={ResetPassword} />
                 </div>
             </Router>
         );
