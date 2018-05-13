@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Card, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import TextTruncate from 'react-text-truncate';
 
 import client from '../../client';
 import './EventDetail.css';
@@ -20,7 +21,14 @@ function EventDetail(props) {
                     <Card.Content>
                         <Card.Header content={props.title} />
                         <Card.Meta content={props.date} />
-                        <Card.Description content={props.description} />
+                        {/* <Card.Description content={props.description} /> */}
+                        <p className="event-description"><TextTruncate
+                            line={2}
+                            truncateText="…"
+                            text={props.description}
+                            textTruncateChild={<a href="#">Read on</a>}
+                        />
+                        </p>
                     </Card.Content>
                     <Card.Content extra>
                         <Icon name='user' />

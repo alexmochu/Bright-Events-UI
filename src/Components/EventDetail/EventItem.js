@@ -91,7 +91,7 @@ class EventItem extends Component{
                         <br/>
                         <h3>{event.date}</h3>
                         <h1>{event.title}</h1>
-                        <p>{event.description}</p>
+                        <p className='event_description'>{event.description}</p>
                         <p>{event.location}</p> 
                         <p>{event.time}</p>
                         { this.state.rsvpd.message === 'True'?
