@@ -48,7 +48,7 @@ render() {
                     <p>{errors.error}</p>
                 </Message>
             )}
-            <Form.Field error={!!errors.new_password}>
+            <Form.Field error={!!errors.new_password} required>
                 <label htmlFor="new_password">New Password</label>
                 <input 
                     type="password"
@@ -59,8 +59,8 @@ render() {
                 />
                 {errors.new_password && <InlineError text={errors.new_password} />}
             </Form.Field>
-            <Form.Field error={!!errors.password_confirmation}>
-                <label htmlFor="password_confirmation">Password</label>
+            <Form.Field error={!!errors.password_confirmation} required>
+                <label htmlFor="password_confirmation">Password Confirmation</label>
                 <input 
                     type="password" 
                     name="password_confirmation" 
