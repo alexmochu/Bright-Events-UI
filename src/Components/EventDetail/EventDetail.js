@@ -21,13 +21,13 @@ function EventDetail(props) {
                     <Card.Content>
                         <Card.Header content={props.title} />
                         <Card.Meta content={props.date} />
-                        {/* <Card.Description content={props.description} /> */}
-                        <p className="event-description"><TextTruncate
-                            line={2}
-                            truncateText="…"
-                            text={props.description}
-                            textTruncateChild={<a href="#">Read on</a>}
-                        />
+                        <p className="event-description">
+                            <TextTruncate
+                                line={2}
+                                truncateText="…"
+                                text={props.description}
+                                textTruncateChild={<a href={'/events/' + props.id}>Read on</a>}
+                            />
                         </p>
                     </Card.Content>
                     <Card.Content extra>
@@ -46,6 +46,7 @@ EventDetail.propTypes = {
     date: PropTypes.string,
     location: PropTypes.string,
     guests: PropTypes.string,
+    id: PropTypes.integer
 };
 
 export default EventDetail;
