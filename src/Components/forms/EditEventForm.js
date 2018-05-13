@@ -19,7 +19,7 @@ class EditEventForm extends React.Component {
     }
 
 
-onChange = e => {
+onChange = e => 
     this.setState({ 
         data: { ...this.state.data, [e.target.name]: e.target.value}
     });
@@ -44,7 +44,6 @@ validate = (data) => {
     if (!data.category) errors.category = 'Category can\'t be blank';
     if (!data.date) errors.date = 'Date can\'t be blank';
     if (!data.time) errors.time = 'Time can\'t be blank';
-    
     return errors;
 }
 
@@ -138,7 +137,8 @@ render() {
 
 EditEventForm.propTypes = {
     submit: PropTypes.func.isRequired,
-    match: PropTypes.func.isRequired
+    match: PropTypes.func.isRequired,
+    event: PropTypes.object
 };
 
 export default EditEventForm;
