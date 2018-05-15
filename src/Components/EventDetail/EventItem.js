@@ -102,10 +102,11 @@ class EventItem extends Component{
                             :
                             <Button positive size='medium' content={ this.state.rsvpbtnContent } onClick={() => this.rsvpEvent()}/>
                         }
-
                         { currentUserId === event.user_id?
                             <span>
-                                <Button icon='edit' content='EDIT'/>
+                                <Link to={'/edit/events/' + event.id}>
+                                    <Button icon='edit' content='EDIT'/>
+                                </Link>
                                 <Button icon='delete' negative content='DELETE' onClick={() => this.deleteEvent()}/>
                             </span>
                             :
@@ -128,13 +129,13 @@ class EventItem extends Component{
                                     <Image avatar src={userImage} />
                                     <List.Content>
                                         <List.Header>{guest.user_name}</List.Header>
-                                        {guest.email}
                                     </List.Content>
                                 </List.Item>
                             )}
                         </List>
                     </Container>
                 </Container>
+                <br/>
             </div>
         );
     }
