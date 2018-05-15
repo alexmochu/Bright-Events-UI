@@ -45,6 +45,7 @@ class RsvpEvents extends React.Component {
                            </Link>
                        )}
                    </div>
+                   <br/>
                </Container>
            </div>
        );

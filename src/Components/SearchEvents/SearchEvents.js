@@ -117,6 +117,7 @@ class SearchEvents extends React.Component {
                             </Link>
                         )}
                     </div>
+                    <br/>
                 </Container>
             </div>
         );
