@@ -92,7 +92,7 @@ class EventItem extends Component{
                 <Container style={{ marginTop: '2em' }}>
                     <div className='event-details'>
                         <br/>
-                        <h3>{event.date}</h3>
+                        <h3>{event.date.split('00')[0]}</h3>
                         <h1>{event.title}</h1>
                         <p className='event_description'>{event.description}</p>
                         <p>{event.location}</p> 

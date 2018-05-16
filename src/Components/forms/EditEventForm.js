@@ -3,7 +3,7 @@ import { Form, Button, Message } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import InlineError from '../messages/InlineError';
-
+let titleInput;
 class EditEventForm extends React.Component {
     state = {
         data: {
@@ -23,29 +23,16 @@ onChange = e =>
     this.setState({ 
         data: { ...this.state.data, [e.target.name]: e.target.value}
     });
-
+    
+componentWillMount = () => {
+    this.setState({data:this.props.event});
+}
 onSubmit = (event) => {
     event.preventDefault();
-    const errors = this.validate(this.state.data);
-    this.setState({errors});
-    if (Object.keys(errors).length === 0) {
-        this.setState({ loading: true });
-        this.props
-            .submit(this.state.data)
-            .catch(err => this.setState({ errors: err.response.data, loading: false }));
-    }
+    this.props
+        .submit(this.state.data)
+        .catch(err => this.setState({ errors: err.response.data, loading: false }));
 };
-
-validate = (data) => {
-    const errors = {};
-    if (!data.title) errors.title = 'Title can\'t be blank';
-    if (!data.description) errors.description = 'Description can\'t be blank';
-    if (!data.location) errors.location = 'Location can\'t be blank';
-    if (!data.category) errors.category = 'Category can\'t be blank';
-    if (!data.date) errors.date = 'Date can\'t be blank';
-    if (!data.time) errors.time = 'Time can\'t be blank';
-    return errors;
-}
 
 render() {
     const { data, errors, loading } = this.state;

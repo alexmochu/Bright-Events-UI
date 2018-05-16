@@ -20,7 +20,6 @@ class Header extends Component {
       client.get('/current-user')
           .then(res => {
               this.setState({ currentUser: {...res.data.user} });
-              console.log('NAME', this.state.currentUser);
           });
   }
 
