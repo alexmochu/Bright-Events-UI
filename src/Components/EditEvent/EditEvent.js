@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import EditEventForm from '../forms/EditEventForm';
@@ -42,7 +41,6 @@ class EditEvent extends React.Component {
         this.editEvent(data).then(() => this.props.history.push('/events'));
 
     render() {
-        const { loading } = this.state;        
         document.title = 'Bright Events | Edit Event';
         return (
             <div style={{ marginTop: '7em' }}>

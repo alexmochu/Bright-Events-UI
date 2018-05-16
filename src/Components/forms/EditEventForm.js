@@ -3,7 +3,8 @@ import { Form, Button, Message } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import InlineError from '../messages/InlineError';
-let titleInput;
+
+
 class EditEventForm extends React.Component {
     state = {
         data: {
@@ -14,7 +15,6 @@ class EditEventForm extends React.Component {
             date: '',
             time: ''
         },
-        loading: false,
         errors: {}
     }
 
@@ -35,10 +35,10 @@ onSubmit = (event) => {
 };
 
 render() {
-    const { data, errors, loading } = this.state;
+    const { errors } = this.state;
     const { event } = this.props;
     return (
-        <Form onSubmit={this.onSubmit} className="Edit-event-form" loading={ loading }>
+        <Form onSubmit={this.onSubmit} className="Edit-event-form">
             { errors.error && (
                 <Message negative>
                     <Message.Header>Something went wrong</Message.Header>
