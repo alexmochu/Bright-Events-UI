@@ -72,7 +72,7 @@ render() {
                 />
                 {errors.password && <InlineError text={errors.password} />}
             </Form.Field>
-            <Button ui button >Submit</Button>
+            <Button ui button size='large'>Submit</Button>
             <p>Don't have an account? <a href="/signup">Sign Up</a></p>
         </Form>
     );

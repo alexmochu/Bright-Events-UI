@@ -9,9 +9,12 @@ import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import CreateEvent from '../CreateEvent/CreateEvent';
 import RsvpEvents from '../ShowEvents/RsvpEvents';
+import EditEvent from '../EditEvent/EditEvent';
 import MyEvents from '../ShowEvents/MyEvents';
 import SearchEvents from '../SearchEvents/SearchEvents';
 import ResetPassword from '../ResetPassword/ResetPassword';
+import ProtectedRoute from '../Routes/ProtectedRoute';
+
 
 class App extends Component {
     render() {
@@ -20,15 +23,16 @@ class App extends Component {
                 <div>
                     <Header/>
                     <Route exact path='/' component={Home} />
-                    <Route  path='/events/:id' component={EventItem} />
                     <Route exact path='/events' component={ShowEvents} />
-                    <Route  path='/event/new' component={CreateEvent} />
+                    <Route path='/events/:id' component={EventItem} />
+                    <ProtectedRoute path='/event/new' component={CreateEvent} />
                     <Route path='/login' component={Login} />
                     <Route path='/signup' component={Signup} />
-                    <Route path='/rsvp' component={RsvpEvents} />
-                    <Route path='/user/:id/events' component={MyEvents} />
+                    <ProtectedRoute path='/rsvp' component={RsvpEvents} />
+                    <ProtectedRoute path='/edit/events/:id' component={EditEvent} />
+                    <ProtectedRoute path='/user/:id/events' component={MyEvents} />
                     <Route path='/search/events' component={SearchEvents} />
-                    <Route path='/reset-password' component={ResetPassword} />
+                    <ProtectedRoute path='/reset-password' component={ResetPassword} />
                 </div>
             </Router>
         );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import EventDetail from '../EventDetail/EventDetail';
@@ -45,6 +45,7 @@ class RsvpEvents extends React.Component {
                            </Link>
                        )}
                    </div>
+                   <br/>
                </Container>
            </div>
        );

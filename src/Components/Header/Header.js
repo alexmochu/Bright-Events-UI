@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Dropdown } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import logo from '../../logo.png';
 import * as actions from '../../actions/auth';
 import './Header.css';
+import client from '../../client';
 
 
 class Header extends Component {
-  state = {}
+  state = {
+      currentUser: {}
+  }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
+  componentDidMount() {
+      client.get('/current-user')
+          .then(res => {
+              this.setState({ currentUser: {...res.data.user} });
+          });
+  }
+
   render() {
-      const { activeItem } = this.state;
+      const { activeItem, currentUser } = this.state;
       const { isAuthenticated, logout, currentUserId } = this.props;
       let userId = currentUserId?currentUserId:''; 
+
       return (
           <Menu fixed='top'>
               <Menu.Item
@@ -49,33 +60,40 @@ class Header extends Component {
                   >
             create event
                   </Menu.Item>
-                  <Menu.Item
-                      name='rsvp'
-                      color='orange'
-                      active={activeItem === 'rsvp'}
-                      onClick={this.handleItemClick}
-                      href='/rsvp'
-                  >
-                  rsvp'd events
-                  </Menu.Item>
-                  <Menu.Item
-                      name='reset-password'
-                      color='orange'
-                      active={activeItem === 'reset-password'}
-                      onClick={this.handleItemClick}
-                      href='/reset-password'
-                  >
-                  reset password
-                  </Menu.Item>
-                  <Menu.Item
-                      name='my-events'
-                      color='orange'
-                      active={activeItem === 'my-events'}
-                      onClick={this.handleItemClick}
-                      href={`/user/${userId}/events`}
-                  >
-                  my events
-                  </Menu.Item>
+                  { isAuthenticated?
+                      <Dropdown item text={currentUser.user_name}>
+                          <Dropdown.Menu>
+                              <Menu.Item
+                                  name='my-events'
+                                  color='orange'
+                                  active={activeItem === 'my-events'}
+                                  onClick={this.handleItemClick}
+                                  href={`/user/${userId}/events`}
+                              >
+                            MY EVENTS
+                              </Menu.Item>
+                              <Menu.Item
+                                  name='rsvp'
+                                  color='orange'
+                                  active={activeItem === 'rsvp'}
+                                  onClick={this.handleItemClick}
+                                  href='/rsvp'
+                              >
+                            RSVP'D EVENTS
+                              </Menu.Item>
+                              <Menu.Item
+                                  name='reset-password'
+                                  color='orange'
+                                  active={activeItem === 'reset-password'}
+                                  onClick={this.handleItemClick}
+                                  href='/reset-password'
+                              >
+                            RESET PASSWORD
+                              </Menu.Item>
+                          </Dropdown.Menu>
+                      </Dropdown>:
+                      ''
+                  }
                   <Menu.Item
                       name='search-events'
                       color='orange'

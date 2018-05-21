@@ -44,6 +44,7 @@ export default class MyEvents extends React.Component {
                             </Link>
                         )}
                     </div>
+                    <br/>
                 </Container>
             </div>
         );

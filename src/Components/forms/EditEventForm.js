@@ -1,10 +1,11 @@
 import React from 'react';
 import { Form, Button, Message } from 'semantic-ui-react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import InlineError from '../messages/InlineError';
 
-class CreateEventForm extends React.Component {
+
+class EditEventForm extends React.Component {
     state = {
         data: {
             title: '',
@@ -14,43 +15,30 @@ class CreateEventForm extends React.Component {
             date: '',
             time: ''
         },
-        loading: false,
         errors: {}
     }
+
 
 onChange = e => 
     this.setState({ 
         data: { ...this.state.data, [e.target.name]: e.target.value}
     });
-
+    
+componentWillMount = () => {
+    this.setState({data:this.props.event});
+}
 onSubmit = (event) => {
     event.preventDefault();
-    const errors = this.validate(this.state.data);
-    this.setState({errors});
-    if (Object.keys(errors).length === 0) {
-        this.setState({ loading: true });
-        this.props
-            .submit(this.state.data)
-            .catch(err => this.setState({ errors: err.response.data, loading: false }));
-    }
+    this.props
+        .submit(this.state.data)
+        .catch(err => this.setState({ errors: err.response.data, loading: false }));
 };
 
-validate = (data) => {
-    const errors = {};
-    if (!data.title) errors.title = 'Title can\'t be blank';
-    if (!data.description) errors.description = 'Description can\'t be blank';
-    if (!data.location) errors.location = 'Location can\'t be blank';
-    if (!data.category) errors.category = 'Category can\'t be blank';
-    if (!data.date) errors.date = 'Date can\'t be blank';
-    if (!data.time) errors.time = 'Time can\'t be blank';
-    
-    return errors;
-}
-
 render() {
-    const { data, errors, loading } = this.state;
+    const { errors } = this.state;
+    const { event } = this.props;
     return (
-        <Form onSubmit={this.onSubmit} className="create-event-form" loading={loading}>
+        <Form onSubmit={this.onSubmit} className="Edit-event-form">
             { errors.error && (
                 <Message negative>
                     <Message.Header>Something went wrong</Message.Header>
@@ -64,19 +52,19 @@ render() {
                     id="title" 
                     name="title" 
                     placeholder="Jah9 Nairobi Concert" 
-                    value={data.title} 
+                    defaultValue={event.title}
                     onChange={this.onChange}
                 />
                 {errors.title && <InlineError text={errors.title} />}
             </Form.Field>
             <Form.Field error={!!errors.description} required>
                 <label htmlFor="description">Event Description</label>
-                <input 
+                <input  
                     type="text"
                     id="description" 
                     name="description" 
                     placeholder="Jah9’s words are a reflection of the life she has constructed. Considered a..." 
-                    value={data.description} 
+                    defaultValue={event.description}
                     onChange={this.onChange}
                 />
                 {errors.description && <InlineError text={errors.description} />}
@@ -88,7 +76,7 @@ render() {
                     id="location" 
                     name="location" 
                     placeholder="Alchemist Bar" 
-                    value={data.location} 
+                    defaultValue={event.location}
                     onChange={this.onChange}
                 />
                 {errors.location && <InlineError text={errors.location} />}
@@ -100,7 +88,7 @@ render() {
                     id="category" 
                     name="category" 
                     placeholder="I & I Vibration" 
-                    value={data.category} 
+                    defaultValue={event.category}
                     onChange={this.onChange}
                 />
                 {errors.category && <InlineError text={errors.category} />}
@@ -111,7 +99,7 @@ render() {
                     type="date"
                     id="date" 
                     name="date" 
-                    value={this.date} 
+                    defaultValue={event.date}
                     onChange={this.onChange}
                 />
                 {errors.date && <InlineError text={errors.date} />}
@@ -123,7 +111,7 @@ render() {
                     id="time" 
                     name="time" 
                     placeholder="6:00 PM - 6:00 AM"
-                    value={this.time} 
+                    defaultValue={event.time}
                     onChange={this.onChange}
                 />
                 {errors.time && <InlineError text={errors.time} />}
@@ -134,8 +122,10 @@ render() {
 }
 }
 
-CreateEventForm.propTypes ={
-    submit: propTypes.func.isRequired
+EditEventForm.propTypes = {
+    submit: PropTypes.func.isRequired,
+    match: PropTypes.func.isRequired,
+    event: PropTypes.object
 };
 
-export default CreateEventForm;
+export default EditEventForm;

@@ -43,6 +43,7 @@ export default class ShowEvents extends React.Component {
                             </Link>
                         )}
                     </div>
+                    <br/>
                 </Container>
             </div>
         );

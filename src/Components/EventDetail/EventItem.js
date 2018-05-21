@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Container, Label, Button, Image, List, Icon  } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import { Container, Label, Button, Image, List, Icon, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Loading from '../loading/Loading';
 import client from '../../client';
 import './EventItem.css';
 import userImage from '../../default-user.png';
 
+document.title = 'Bright Events | Event';
+ 
 class EventItem extends Component{
     constructor(props){
         super(props);
@@ -16,7 +19,8 @@ class EventItem extends Component{
             rsvpbtnContent: 'RSVP',
             removersvpbtnContent: 'REMOVE RSVP',
             guests: [],
-            rsvpd: {}
+            rsvpd: {},
+            errors: {}
         };
     }
   
@@ -57,7 +61,8 @@ class EventItem extends Component{
                 this.setState({ rsvpbtnContent: 'RESERVED' });
                 window.location.reload();
             },
-            );
+            )
+            .catch(err => this.setState({ errors: err.response.data, loading: false }));
     }
 
     removeRsvp() {
@@ -81,28 +86,36 @@ class EventItem extends Component{
         const event = this.state.eventDetails.event;
         const guests = this.state.guests;
         const { currentUserId } = this.props;
+        const { errors } = this.state;
         if (!this.state.eventDetails.event){
             return <Loading/>;
         }
         return(
             <div>
-                <Container style={{ marginTop: '2em' }}>
+                <Container style={{ marginTop: '3em' }}>
+                    { errors.error && (
+                        <Message negative size='small'>
+                            <Message.Header>Something went wrong</Message.Header>
+                            <p>{errors.error}</p>
+                        </Message>
+                    )}
                     <div className='event-details'>
                         <br/>
-                        <h3>{event.date}</h3>
+                        <h3>{event.date.split('00')[0]}</h3>
                         <h1>{event.title}</h1>
                         <p className='event_description'>{event.description}</p>
                         <p>{event.location}</p> 
                         <p>{event.time}</p>
                         { this.state.rsvpd.message === 'True'?
-                            <Button color='orange'  content={ this.state.removersvpbtnContent } onClick={() => this.removeRsvp()}/>
+                            <Button color='orange' className='rsvp-btn' content={ this.state.removersvpbtnContent } onClick={() => this.removeRsvp()}/>
                             :
-                            <Button positive size='medium' content={ this.state.rsvpbtnContent } onClick={() => this.rsvpEvent()}/>
+                            <Button positive className='rsvp-btn' size='medium' content={ this.state.rsvpbtnContent } onClick={() => this.rsvpEvent()}/>
                         }
-
                         { currentUserId === event.user_id?
                             <span>
-                                <Button icon='edit' content='EDIT'/>
+                                <Link to={'/edit/events/' + event.id}>
+                                    <Button icon='edit' content='EDIT'/>
+                                </Link>
                                 <Button icon='delete' negative content='DELETE' onClick={() => this.deleteEvent()}/>
                             </span>
                             :
@@ -125,13 +138,13 @@ class EventItem extends Component{
                                     <Image avatar src={userImage} />
                                     <List.Content>
                                         <List.Header>{guest.user_name}</List.Header>
-                                        {guest.email}
                                     </List.Content>
                                 </List.Item>
                             )}
                         </List>
                     </Container>
                 </Container>
+                <br/>
             </div>
         );
     }

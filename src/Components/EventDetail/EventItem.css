@@ -1,5 +1,5 @@
 .event-details h1 {
-    font-size: 55px;
+    font-size: 48px;
     font-weight: 500;
     text-transform: capitalize;
 }
@@ -10,8 +10,8 @@
 }
 
 .event-details p {
-    font-size: 16px;
     line-height: 1.5;
+    letter-spacing: .01rem;
 }
 
 .event-category {
@@ -25,5 +25,9 @@
 }
 
 .event_description {
-    width: 50%;
+    max-width: 730px;
+}
+
+.rsvp-btn {
+  letter-spacing: 3px;
 }

@@ -20,7 +20,7 @@ function EventDetail(props) {
                 <Card fluid>
                     <Card.Content>
                         <Card.Header content={props.title} />
-                        <Card.Meta content={props.date} />
+                        <Card.Meta content={props.date.split('00')[0]} />
                         <p className="event-description">
                             <TextTruncate
                                 line={2}
