@@ -26,19 +26,28 @@ class SearchEvents extends React.Component {
 
     onSubmit = () => {
         let eventName = this.state.data.eventName;
-        client.get(`/events?q=${eventName}`).then(res => {
-            this.setState({ searchedEvents: res.data.events });
-        });
+        if (eventName.length) {
+            this.setState({ searchedEvents: [] });
+            client.get(`/events?q=${eventName}`).then(res => {
+                this.setState({ searchedEvents: res.data.events });
+            });
+        }
 
         let eventLocation = this.state.data.eventLocation;
-        client.get(`/events?location=${eventLocation}`).then(res => {
-            this.setState({ searchedEvents: res.data.events });
-        });
-
+        if (eventLocation.length) {
+            this.setState({ searchedEvents: [] });
+            client.get(`/events?location=${eventLocation}`).then(res => {
+                this.setState({ searchedEvents: res.data.events });
+            });
+        }
+        
         let eventCategory = this.state.data.eventCategory;
-        client.get(`/events?category=${eventCategory}`).then(res => {
-            this.setState({ searchedEvents: res.data.events });
-        });
+        if (eventCategory.length) {
+            this.setState({ searchedEvents: [] });
+            client.get(`/events?category=${eventCategory}`).then(res => {
+                this.setState({ searchedEvents: res.data.events });
+            });
+        }
 
         this.setState({
             data: {
