@@ -70,7 +70,7 @@ render() {
                 />
                 {errors.password_confirmation && <InlineError text={errors.password_confirmation} />}
             </Form.Field>
-            <Button ui button positive>Submit</Button>
+            <Button ui button positive size='large'>Submit</Button>
         </Form>
     );
 }

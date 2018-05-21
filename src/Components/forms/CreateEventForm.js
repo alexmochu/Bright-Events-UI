@@ -128,7 +128,7 @@ render() {
                 />
                 {errors.time && <InlineError text={errors.time} />}
             </Form.Field>
-            <Button ui button color='green'>Submit</Button>
+            <Button ui button color='green' size='large'>Submit</Button>
         </Form>
     );
 }
