@@ -8,15 +8,17 @@ import jwt from 'jsonwebtoken';
 
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
-import App from './Components/App/App';
-import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
 import { userLoggedIn, setCurrentUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import App from './Components/App/App';
+import registerServiceWorker from './registerServiceWorker';
+import logger from './middlewares/logger.middleware';
 
+// redux store
 const store = createStore(
     rootReducer, 
-    composeWithDevTools(applyMiddleware(thunk))
+    composeWithDevTools(applyMiddleware(thunk,logger))
 );
 
 if (localStorage.JWT) {
@@ -28,6 +30,8 @@ if (localStorage.JWT) {
 
 
 ReactDOM.render(
+    /* <Provider> gives all it's children access to the 
+    store via the connect() method. */
     <Provider store={store}>
         <App />
     </Provider>, 

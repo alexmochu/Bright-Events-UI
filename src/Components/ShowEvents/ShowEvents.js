@@ -1,33 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
+import Loading from '../../Components/loading/Loading';
+import Error from '../../Components/loading/Error';
 import EventDetail from '../EventDetail/EventDetail';
-import client from '../../client';
 import './ShowEvents.css';
 
 
-export default class ShowEvents extends React.Component {
-    state = {
-        events: [],
-    };
-    
+class ShowEvents extends React.Component {
     componentDidMount() {
-        client.get('/events').then(res => {
-            this.setState({ events: res.data.events });
-        });
+        this.props.fetchEvents();
     }
     
     render() {
         document.title = 'Bright Events | Events';
+        const { loading, events, error } = this.props;
+        if (loading) {
+            return <Loading/>;
+        }
+        if (error) {
+            return <Error/>;
+        }
         return(
             <div>
-                <header class="events-header">
-                    <h1 class="center">Events</h1>
+                <header className="events-header">
+                    <h1 className="center">Events</h1>
                 </header>
                 <Container style={{ marginTop: '1.5em' }}>
                     <div>
-                        {this.state.events.map(event =>
+                        {events.map(event =>
                             <Link
                                 to={'/events/' + event.id}
                                 key={event.id}>
@@ -49,3 +52,12 @@ export default class ShowEvents extends React.Component {
         );
     }
 }
+
+ShowEvents.propTypes = {
+    fetchEvents: PropTypes.func,
+    loading: PropTypes.bool,
+    events: PropTypes.array,
+    error: PropTypes.string
+};
+
+export default ShowEvents; 

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import Home from '../Home/Home';
-import ShowEvents from '../ShowEvents/ShowEvents';
 import EventItem from '../EventDetail/EventItem';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
@@ -14,6 +13,7 @@ import MyEvents from '../ShowEvents/MyEvents';
 import SearchEvents from '../SearchEvents/SearchEvents';
 import ResetPassword from '../ResetPassword/ResetPassword';
 import ProtectedRoute from '../Routes/ProtectedRoute';
+import ShowEventsContainer from '../ShowEvents/ShowEventsContainer';
 
 
 class App extends Component {
@@ -23,7 +23,7 @@ class App extends Component {
                 <div>
                     <Header/>
                     <Route exact path='/' component={Home} />
-                    <Route exact path='/events' component={ShowEvents} />
+                    <Route exact path='/events' component={ShowEventsContainer} />
                     <Route path='/events/:id' component={EventItem} />
                     <ProtectedRoute path='/event/new' component={CreateEvent} />
                     <Route path='/login' component={Login} />
