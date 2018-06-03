@@ -3,13 +3,13 @@ import { Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { createEvent } from '../../actions/events';
+import { createEvent } from '../../actions/events.actions';
 import CreateEventForm from '../forms/CreateEventForm';
 
 
 class CreateEvent extends React.Component {
     submit = (data) =>
-        this.props.createEvent(data).then(() => this.props.history.push('/events'));
+        this.props.createEvent(data);
     
     render() {
         document.title = 'Bright Events | Create Event';

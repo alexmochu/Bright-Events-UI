@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Label, Button, Image, List, Icon, Message } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -8,17 +7,13 @@ import Loading from '../loading/Loading';
 import client from '../../client';
 import './EventItem.css';
 import userImage from '../../default-user.png';
-
+var hdate = require('human-date');
 document.title = 'Bright Events | Event';
  
-class EventItem extends Component{
+class EventItem extends Component {
     constructor(props){
         super(props);
         this.state = {
-            eventDetails: {},
-            rsvpbtnContent: 'RSVP',
-            removersvpbtnContent: 'REMOVE RSVP',
-            guests: [],
             rsvpd: {},
             errors: {}
         };
@@ -26,6 +21,7 @@ class EventItem extends Component{
   
     componentDidMount() {
         let eventId = this.props.match.params.id;
+        this.props.fetchEvent(eventId);
         client.get(`/events/${eventId}/user/rsvp`)
             .then(res => {
                 this.setState({ rsvpd: res.data });
@@ -33,63 +29,32 @@ class EventItem extends Component{
     }
 
     componentWillMount = () => {
-        this.getEvent();
-        this.getGuests();
-    }
-
-    getEvent() {
         let eventId = this.props.match.params.id;
-        client.get(`/events/${eventId}`)
-            .then(res => {
-                this.setState({ eventDetails: res.data });
-            });
+        this.props.fetchGuests(eventId);
     }
 
     deleteEvent() {
         let eventId = this.props.match.params.id;
-        client.delete(`/events/${eventId}`)
-            .then(
-                () => this.props.history.push('/events')
-            );
+        this.props.deleteEvent(eventId);
     }
 
     rsvpEvent() {
         let eventId = this.props.match.params.id;
-        client.post(`/events/${eventId}/rsvp`)
-            .then(res => {
-                this.setState({ 'rsvpd': res.data });
-                this.setState({ rsvpbtnContent: 'RESERVED' });
-                window.location.reload();
-            },
-            )
-            .catch(err => this.setState({ errors: err.response.data, loading: false }));
+        this.props.rsvpEvent(eventId);
     }
 
     removeRsvp() {
         let eventId = this.props.match.params.id;
-        client.delete(`/events/${eventId}/rsvp`)
-            .then(
-                this.setState({ removersvpbtnContent: 'RSVP REMOVED' }),
-                window.location.reload(),
-            );
-    }
-
-    getGuests() {
-        let eventId = this.props.match.params.id;
-        client.get(`/events/${eventId}/rsvp`)
-            .then(res => {
-                this.setState({ guests: res.data.guests });
-            });
+        this.props.removeRsvp(eventId);
     }
 
     render(){
-        const event = this.state.eventDetails.event;
-        const guests = this.state.guests;
-        const { currentUserId } = this.props;
+        const { currentUserId, event, loading, guests, rsvpd } = this.props;
         const { errors } = this.state;
-        if (!this.state.eventDetails.event){
+        if (loading){
             return <Loading/>;
         }
+        console.log('PROPS', this.props);
         return(
             <div>
                 <Container style={{ marginTop: '3em' }}>
@@ -101,15 +66,15 @@ class EventItem extends Component{
                     )}
                     <div className='event-details'>
                         <br/>
-                        <h3>{event.date.split('00')[0]}</h3>
+                        <h3>{hdate.prettyPrint(event.date)} - ({hdate.relativeTime(event.date)})</h3>
                         <h1>{event.title}</h1>
                         <p className='event_description'>{event.description}</p>
                         <p>{event.location}</p> 
                         <p>{event.time}</p>
                         { this.state.rsvpd.message === 'True'?
-                            <Button color='orange' className='rsvp-btn' content={ this.state.removersvpbtnContent } onClick={() => this.removeRsvp()}/>
+                            <Button color='orange' className='rsvp-btn' content='REMOVE RSVP' onClick={() => this.removeRsvp()}/>
                             :
-                            <Button positive className='rsvp-btn' size='medium' content={ this.state.rsvpbtnContent } onClick={() => this.rsvpEvent()}/>
+                            <Button positive className='rsvp-btn' size='medium' content='RSVP' onClick={() => this.rsvpEvent()}/>
                         }
                         { currentUserId === event.user_id?
                             <span>
@@ -125,16 +90,16 @@ class EventItem extends Component{
                             <Label basic color='black' size='small'><h5>#{event.category}</h5></Label>
                         </div>
                     </div>
-
+    
                     <h3>HOST</h3>
                     <p><Icon name='user outline'/>{event.host_name}</p>
                     <p><Icon name='mail outline'/>{event.host_email}</p>
-
+    
                     <Container className='guests-container' style={{ marginTop: '4em' }}>
                         <h3>GUESTS ({event.guests})</h3>
                         <List horizontal>
                             {guests.map(guest =>
-                                <List.Item key={guest.id}>
+                                <List.Item key={guest.id}> 
                                     <Image avatar src={userImage} />
                                     <List.Content>
                                         <List.Header>{guest.user_name}</List.Header>
@@ -148,6 +113,7 @@ class EventItem extends Component{
             </div>
         );
     }
+    
 }
 
 EventItem.propTypes = {
@@ -155,11 +121,17 @@ EventItem.propTypes = {
     history: PropTypes.shape({
         push: PropTypes.func.isRequired
     }).isRequired,
-    currentUserId: PropTypes.number.isRequired
+    currentUserId: PropTypes.number.isRequired,
+    fetchEvent: PropTypes.func,
+    fetchGuests: PropTypes.func,
+    event: PropTypes.obj,
+    loading: PropTypes.bool,
+    guests: PropTypes.obj,
+    deleteEvent: PropTypes.func,
+    rsvpEvent: PropTypes.func,
+    removeRsvp: PropTypes.func,
+    checkRsvp: PropTypes.func,
+    rsvpd: PropTypes.obj
 };
 
-const mapStateToProps = state =>({
-    currentUserId: state.auth.user.sub
-});
-
-export default connect(mapStateToProps)(EventItem);
+export default EventItem;

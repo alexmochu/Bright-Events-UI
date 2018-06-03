@@ -5,6 +5,8 @@ import TextTruncate from 'react-text-truncate';
 
 import client from '../../client';
 import './EventDetail.css';
+var hdate = require('human-date');
+
 
 document.title = 'Bright Events | Event';
 
@@ -20,7 +22,7 @@ function EventDetail(props) {
                 <Card fluid>
                     <Card.Content>
                         <Card.Header content={props.title} />
-                        <Card.Meta content={props.date.split('00')[0]} />
+                        <Card.Meta content={hdate.prettyPrint(props.date)} />
                         <p className="event-description">
                             <TextTruncate
                                 line={2}

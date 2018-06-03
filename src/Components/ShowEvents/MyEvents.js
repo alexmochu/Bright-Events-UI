@@ -4,24 +4,19 @@ import { Container } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import EventDetail from '../EventDetail/EventDetail';
-import client from '../../client';
 import './ShowEvents.css';
 
 
-export default class MyEvents extends React.Component {
-    state = {
-        events: [],
-    };
-    
+class MyEvents extends React.Component {
+
     componentDidMount() {
         let userId = this.props.match.params.id;
-        client.get(`/${userId}/events`).then(res => {
-            this.setState({ events: res.data.events });
-        });
+        this.props.fetchmyEvents(userId);
     }
-    
+
     render() {
         document.title = 'Bright Events | My Events';
+        const { events } = this.props;
         return(
             <div>
                 <header class="my-events-header">
@@ -29,7 +24,7 @@ export default class MyEvents extends React.Component {
                 </header>
                 <Container style={{ marginTop: '1.5em' }}>
                     <div>
-                        {this.state.events.map(event =>
+                        {events.map(event =>
                             <Link
                                 to={'/events/' + event.id}
                                 key={event.id}>
@@ -52,5 +47,9 @@ export default class MyEvents extends React.Component {
 }
 
 MyEvents.propTypes = {
-    match: PropTypes.object.isRequired    
+    match: PropTypes.object.isRequired,
+    events: PropTypes.array,
+    fetchmyEvents: PropTypes.func
 };
+
+export default MyEvents;

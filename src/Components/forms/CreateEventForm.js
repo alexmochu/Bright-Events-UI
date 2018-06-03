@@ -14,7 +14,6 @@ class CreateEventForm extends React.Component {
             date: '',
             time: ''
         },
-        loading: false,
         errors: {}
     }
 
@@ -28,10 +27,9 @@ onSubmit = (event) => {
     const errors = this.validate(this.state.data);
     this.setState({errors});
     if (Object.keys(errors).length === 0) {
-        this.setState({ loading: true });
         this.props
             .submit(this.state.data)
-            .catch(err => this.setState({ errors: err.response.data, loading: false }));
+            .catch(err => this.setState({ errors: err.response.data}));
     }
 };
 
@@ -48,9 +46,9 @@ validate = (data) => {
 }
 
 render() {
-    const { data, errors, loading } = this.state;
+    const { data, errors } = this.state;
     return (
-        <Form onSubmit={this.onSubmit} className="create-event-form" loading={loading}>
+        <Form onSubmit={this.onSubmit} className="create-event-form">
             { errors.error && (
                 <Message negative>
                     <Message.Header>Something went wrong</Message.Header>
