@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import EventDetail from '../EventDetail/EventDetail';
-import client from '../../client';
 
 document.title = 'Bright Events | Events';
 

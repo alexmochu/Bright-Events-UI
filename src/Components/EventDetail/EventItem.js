@@ -49,7 +49,7 @@ class EventItem extends Component {
     }
 
     render(){
-        const { currentUserId, event, loading, guests, rsvpd } = this.props;
+        const { currentUserId, event, loading, guests } = this.props;
         const { errors } = this.state;
         if (loading){
             return <Loading/>;
