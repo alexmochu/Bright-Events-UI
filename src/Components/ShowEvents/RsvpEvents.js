@@ -9,6 +9,10 @@ document.title = 'Bright Events | Events';
 
 class RsvpEvents extends React.Component {
 
+    /*
+    invoked immediately after a component 
+    is mounted. render() will be called twice 
+    */
     componentDidMount() {
         let userId = this.props.currentUserId;
         this.props.fetchRsvpEvents(userId);
@@ -19,7 +23,10 @@ class RsvpEvents extends React.Component {
         return(
             <div>
                 <header class="rsvp-events-header">
-                    <h1 class="center">RSVP'd Events</h1>
+                    <div className="center">
+                        <h1>RSVP'd Events</h1>
+                        <p>Events you've RSVP'd to.</p>
+                    </div>
                 </header>
                 <Container>
                     <div style={{ marginTop: '1.5em' }}>
@@ -34,6 +41,7 @@ class RsvpEvents extends React.Component {
                                     location={event.location}
                                     category={event.category}
                                     id={event.id}
+                                    guests={event.guests}
                                 />
                             </Link>
                         )}
@@ -45,11 +53,12 @@ class RsvpEvents extends React.Component {
     }
 }
 
+// typechecking validation
 RsvpEvents.propTypes = {
-    currentUserId: PropTypes.number.isRequired,
-    events: PropTypes.obj,
+    currentUserId: PropTypes.number,
+    events: PropTypes.object,
     fetchRsvpEvents: PropTypes.func,
-    match: PropTypes.object.isRequired
+    match: PropTypes.object
 };
 
 export default RsvpEvents;

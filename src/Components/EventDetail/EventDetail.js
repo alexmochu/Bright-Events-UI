@@ -2,33 +2,28 @@ import React from 'react';
 import { Container, Card, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import TextTruncate from 'react-text-truncate';
-
-import client from '../../client';
+import { Link }  from 'react-router-dom';
 import './EventDetail.css';
 var hdate = require('human-date');
 
 
 document.title = 'Bright Events | Event';
 
-function EventDetail(props) {
-    const id  = props;
-    client.get(`/events/${id}`).then(res => {
-        this.setState({ event: res.data.event });
-    });
+const EventDetail = (props)=>{
     return(
         <Container text>
             <div className='event-detail'>
                 <br/>
                 <Card fluid>
                     <Card.Content>
-                        <Card.Header content={props.title} />
+                        <Card.Header content={props.title}/>
                         <Card.Meta content={hdate.prettyPrint(props.date)} />
                         <p className="event-description">
                             <TextTruncate
                                 line={2}
                                 truncateText="…"
                                 text={props.description}
-                                textTruncateChild={<a href={'/events/' + props.id}>Read on</a>}
+                                textTruncateChild={<Link to={'/events/' + props.id} className='orange-a'>Read on</Link>}
                             />
                         </p>
                     </Card.Content>
@@ -40,15 +35,16 @@ function EventDetail(props) {
             </div>
         </Container>
     );
-}
+};
 
+// typechecking validation
 EventDetail.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     date: PropTypes.string,
     location: PropTypes.string,
     guests: PropTypes.string,
-    id: PropTypes.integer
+    id: PropTypes.number
 };
 
 export default EventDetail;

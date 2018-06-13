@@ -5,7 +5,7 @@ export default (events = [], action) => {
     case EVENTS_FETCHED:
         return action.events;
     case MY_EVENTS_FETCHED:
-        return action.myevents;
+        return action.events;
     case GUESTS_FETCHED:
         return action.guests;
     case RSVPD_EVENTS_FETCHED:

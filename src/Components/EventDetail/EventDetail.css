@@ -5,3 +5,7 @@
 .event-description {
         color: rgba(0,0,0,.68);
 }
+
+.orange-link a:hover {
+        color: orange;
+}

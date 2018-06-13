@@ -1,24 +1,33 @@
 import React from 'react';
 import { Form, Button, Message } from 'semantic-ui-react';
 import propTypes from 'prop-types';
+import { Link }  from 'react-router-dom';
 
+import './Form.css';
 import InlineError from '../messages/InlineError';
+import { Notifications } from '../messages/Notifications';
 
 class LoginForm extends React.Component {
-    state = {
-        data: {
-            user_name: '',
-            password: '' 
-        },
-        loading: false,
-        errors: {}
+    
+    constructor(props){
+        super(props);
+        this.state = {
+            data: {
+                user_name: '',
+                password: '' 
+            },
+            loading: false,
+            errors: {}
+        };
     }
-
+    
+// handles form data state change
 onChange = e => 
     this.setState({ 
         data: { ...this.state.data, [e.target.name]: e.target.value}
     });
 
+// handles form data submission.
 onSubmit = (event) => {
     event.preventDefault();
     const errors = this.validate(this.state.data);
@@ -31,6 +40,7 @@ onSubmit = (event) => {
     }
 };
 
+// validate form data
 validate = (data) => {
     const errors = {};
     if (!data.user_name) errors.user_name = 'Username can\'t be blank';
@@ -39,11 +49,11 @@ validate = (data) => {
 }
 
 render() {
-    const { data, errors, loading } = this.state;
+    const { data, errors } = this.state;
     return (
-        <Form onSubmit={this.onSubmit} className="login-form" loading={loading}>
+        <Form onSubmit={this.onSubmit} className="login-form">
             { errors.error && (
-                <Message negative>
+                <Message negative onDismiss={this.handleDismis}>
                     <Message.Header>Something went wrong</Message.Header>
                     <p>{errors.error}</p>
                 </Message>
@@ -54,7 +64,7 @@ render() {
                     type="text"
                     id="user_name" 
                     name="user_name" 
-                    placeholder="Rick Sanchez" 
+                    placeholder="Rick" 
                     value={data.user_name} 
                     onChange={this.onChange}
                 />
@@ -73,14 +83,18 @@ render() {
                 {errors.password && <InlineError text={errors.password} />}
             </Form.Field>
             <Button ui button size='large'>Submit</Button>
-            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+            <div className='center reset-password'>
+                <p className='orange-link'><Link to="/request-password-reset">Forgot password? Reset password</Link></p>
+                <p className='orange-link'>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+            </div>
         </Form>
     );
 }
 }
 
+// typechecking validation
 LoginForm.propTypes ={
-    submit: propTypes.func.isRequired
+    submit: propTypes.func
 };
 
 export default LoginForm;

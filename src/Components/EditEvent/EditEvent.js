@@ -7,16 +7,20 @@ import client from '../../client';
 
 
 class EditEvent extends React.Component {
-    state = {
-        eventDetails: {},
-        loading: true,
-        response: ''
-    }
+    
+    // intitialize state & bind methods
     constructor(props) {
         super(props);
-        this.editEvent = this.editEvent.bind(this);
+        this.state = {
+            eventDetails: {},
+            loading: true
+        };
     }
     
+    /*
+    invoked just before mounting occurs. 
+    It is called before render()
+    */
     componentWillMount = () => {
         this.getEvent();
     }
@@ -25,20 +29,14 @@ class EditEvent extends React.Component {
         const eventId = this.props.match.params.id;
         return  client.get(`/events/${eventId}`)
             .then(res => {
-                this.setState({ eventDetails: res.data.event,loading:false });
+                this.setState({ eventDetails: res.data.event, loading: false });
             });
     }
-    
-    editEvent(data) {
-        const eventId = this.props.match.params.id;
-        return  client.put(`/events/${eventId}`, data)
-            .then(res => {
-                this.setState({ response: res.message });
-            });
-    }
-    
+  
     submit = (data) =>
-        this.editEvent(data).then(() => this.props.history.push('/events'));
+        this.props.editEvent(this.props.match.params.id, data)
+            .then(() => this.props.history.push(`/events/${this.props.match.params.id}`))
+
 
     render() {
         document.title = 'Bright Events | Edit Event';
@@ -47,7 +45,7 @@ class EditEvent extends React.Component {
                 <Container text>
                     <h1>Edit Event</h1>
                     {
-                        !this.state.loading &&
+                        this.state.loading === false &&
                         <EditEventForm submit={this.submit} event={this.state.eventDetails} />
                     }
                 </Container>
@@ -56,12 +54,13 @@ class EditEvent extends React.Component {
     }
 }
 
+// typechecking validation
 EditEvent.propTypes = {
-    match: PropTypes.func.isRequired,    
+    match: PropTypes.func,    
     history: PropTypes.shape({
-        push: PropTypes.func.isRequired
-    }).isRequired,
-    editEvent: PropTypes.func.isRequired
+        push: PropTypes.func
+    }),
+    editEvent: PropTypes.func
 };
 
 export default EditEvent;

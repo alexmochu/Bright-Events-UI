@@ -12,52 +12,34 @@ class SearchEvents extends React.Component {
     state = {
         searchedEvents: [],
         data: {
-            eventName: '',
-            eventLocation: '',
-            eventCategory: '',
+            searchParameter: '',
             errors: {}
         }
     };
-    
+
+    // handles form data state change
     onChange = e => 
         this.setState({ 
             data: { ...this.state.data, [e.target.name]: e.target.value}
         });
 
+    // handles form data submission.
     onSubmit = () => {
-        let eventName = this.state.data.eventName;
-        if (eventName.length) {
+        let  searchParameter = this.state.data.searchParameter;
+        if (searchParameter.length) {
             this.setState({ searchedEvents: [] });
-            client.get(`/events?q=${eventName}`).then(res => {
+            client.get(`/events?q=${searchParameter}`).then(res => {
                 this.setState({ searchedEvents: res.data.events });
             });
         }
-
-        let eventLocation = this.state.data.eventLocation;
-        if (eventLocation.length) {
-            this.setState({ searchedEvents: [] });
-            client.get(`/events?location=${eventLocation}`).then(res => {
-                this.setState({ searchedEvents: res.data.events });
-            });
-        }
-        
-        let eventCategory = this.state.data.eventCategory;
-        if (eventCategory.length) {
-            this.setState({ searchedEvents: [] });
-            client.get(`/events?category=${eventCategory}`).then(res => {
-                this.setState({ searchedEvents: res.data.events });
-            });
-        }
-
         this.setState({
             data: {
                 eventName: '',
-                eventLocation: '',
-                eventCategory: '',
             }
         });
     }
     
+    // validate form data
     validate = (data) => {
         const errors = {};
         if (!data.eventName) errors.eventName = 'Event Name can\'t be blank';
@@ -70,44 +52,27 @@ class SearchEvents extends React.Component {
         return(
             <div>
                 <header class="searched-events-header">
-                    <h1 class="center">Search Events</h1>
+                    <div className="center">
+                        <h1>Search Events</h1>
+                        <p>Search for events by title, location & category</p>
+                    </div>
                 </header>
-                <Container style={{ marginTop: '7em' }} text>
+                <Container style={{ marginTop: '2em' }} text>
                     <div>
-                        <Form >
-                            <Form.Group inline>
-                                <Form.Field>
-                                    <input 
-                                        type="text"
-                                        id="eventName" 
-                                        name="eventName" 
-                                        placeholder="Event Name" 
-                                        value={data.eventName} 
-                                        onChange={this.onChange}
-                                    />
-                                </Form.Field>
-                                <Form.Field>
-                                    <input 
-                                        type="text"
-                                        id="eventLocation" 
-                                        name="eventLocation" 
-                                        placeholder="Event Location" 
-                                        value={data.eventLocation} 
-                                        onChange={this.onChange}
-                                    />
-                                </Form.Field>
-                                <Form.Field>
-                                    <input 
-                                        type="text"
-                                        id="eventCategory" 
-                                        name="eventCategory" 
-                                        placeholder="Event Category" 
-                                        value={data.eventCategory} 
-                                        onChange={this.onChange}
-                                    />
-                                </Form.Field>
-                                <Button ui button onClick={this.onSubmit} color='orange'>SEARCH</Button>
-                            </Form.Group>
+                        <Form size='large'>
+                            <Form.Field>
+                                <input 
+                                    type="text"
+                                    id="searchParameter" 
+                                    name="searchParameter" 
+                                    placeholder="Search for your thing. eg. Yoga on Dub/ Hacky neutrino bomb detonation. We don't judge." 
+                                    value={data.searchParameter} 
+                                    onChange={this.onChange}
+                                />
+                            </Form.Field>
+                            <div className='center'>
+                                <Button ui button onClick={this.onSubmit} color='orange' size='large'>SEARCH</Button>
+                            </div>
                         </Form>
                     </div>
                     <div>
@@ -133,8 +98,9 @@ class SearchEvents extends React.Component {
     }
 }
 
+// typechecking validation
 SearchEvents.propTypes ={
-    submit: propTypes.func.isRequired
+    submit: propTypes.func
 };
 
 

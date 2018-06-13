@@ -3,25 +3,37 @@ import { Form, Button, Message } from 'semantic-ui-react';
 import propTypes from 'prop-types';
 
 import InlineError from '../messages/InlineError';
+import { Notifications } from '../messages/Notifications';
 
 class CreateEventForm extends React.Component {
-    state = {
-        data: {
-            title: '',
-            description: '',
-            location: '',
-            category: '',
-            date: '',
-            time: ''
-        },
-        errors: {}
-    }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: {
+                title: '',
+                description: '',
+                location: '',
+                category: '',
+                time: '',
+                date: ''
+            },
+            errors: {}
+        };
+    }
+    
+    componentDidMount() {
+        Notifications();
+    }
+    
+// handles form data state change
 onChange = e => 
     this.setState({ 
         data: { ...this.state.data, [e.target.name]: e.target.value}
     });
 
+    
+// handles form data submission.
 onSubmit = (event) => {
     event.preventDefault();
     const errors = this.validate(this.state.data);
@@ -31,8 +43,23 @@ onSubmit = (event) => {
             .submit(this.state.data)
             .catch(err => this.setState({ errors: err.response.data}));
     }
+    // this.setState({
+    //     data: {
+    //         title: '',
+    //         description: '',
+    //         location: '',
+    //         category: '',
+    //         time: '',
+    //         date: ''
+    //     }
+    // });
 };
 
+handleDismis = () => {
+    this.setState({ errors: {} });
+}
+
+// validate form data
 validate = (data) => {
     const errors = {};
     if (!data.title) errors.title = 'Title can\'t be blank';
@@ -50,7 +77,7 @@ render() {
     return (
         <Form onSubmit={this.onSubmit} className="create-event-form">
             { errors.error && (
-                <Message negative>
+                <Message negative onDismiss={this.handleDismis}>
                     <Message.Header>Something went wrong</Message.Header>
                     <p>{errors.error}</p>
                 </Message>
@@ -61,7 +88,7 @@ render() {
                     type="text"
                     id="title" 
                     name="title" 
-                    placeholder="Jah9 Nairobi Concert" 
+                    placeholder="Jah9 NBO" 
                     value={data.title} 
                     onChange={this.onChange}
                 />
@@ -109,7 +136,7 @@ render() {
                     type="date"
                     id="date" 
                     name="date" 
-                    value={this.date} 
+                    value={data.date} 
                     onChange={this.onChange}
                 />
                 {errors.date && <InlineError text={errors.date} />}
@@ -121,7 +148,7 @@ render() {
                     id="time" 
                     name="time" 
                     placeholder="6:00 PM - 6:00 AM"
-                    value={this.time} 
+                    value={data.time} 
                     onChange={this.onChange}
                 />
                 {errors.time && <InlineError text={errors.time} />}
@@ -132,8 +159,9 @@ render() {
 }
 }
 
+// typechecking validation
 CreateEventForm.propTypes ={
-    submit: propTypes.func.isRequired
+    submit: propTypes.func
 };
 
 export default CreateEventForm;
