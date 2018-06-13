@@ -1,37 +1,47 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import { Container, Message } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-import EventDetail from '../EventDetail/EventDetail';
-import client from '../../client';
 import './ShowEvents.css';
+import EventDetail from '../EventDetail/EventDetail';
+import { Notifications } from '../messages/Notifications';
 
+class MyEvents extends React.Component {
 
-export default class MyEvents extends React.Component {
-    state = {
-        events: [],
-    };
-    
+    /*
+    invoked immediately after a component 
+    is mounted. render() will be called twice 
+    */
     componentDidMount() {
         let userId = this.props.match.params.id;
-        client.get(`/${userId}/events`).then(res => {
-            this.setState({ events: res.data.events });
-        });
+        this.props.fetchmyEvents(userId);
+        Notifications();
     }
     
     render() {
         document.title = 'Bright Events | My Events';
+        const { events, deleted } = this.props;
         return(
             <div>
-                <header class="my-events-header">
-                    <h1 class="center">My Events</h1>
+                <header className="my-events-header">
+                    <div className="center">
+                        <h1>My Events</h1>
+                        <p>Events you've created.</p>
+                    </div>
                 </header>
                 <Container style={{ marginTop: '1.5em' }}>
+                    <Container text> 
+                        { deleted && (
+                            <Message positive className='semantic-message'>
+                                <p>Event deleted successfully.</p>
+                            </Message>
+                        )}
+                    </Container>
                     <div>
-                        {this.state.events.map(event =>
+                        {events.map(event =>
                             <Link
-                                to={'/events/' + event.id}
+                                to={`/events/${event.id}`}
                                 key={event.id}>
                                 <EventDetail
                                     title={event.title}
@@ -40,6 +50,7 @@ export default class MyEvents extends React.Component {
                                     location={event.location}
                                     category={event.category}
                                     id={event.id}
+                                    guests={event.guests}
                                 />
                             </Link>
                         )}
@@ -51,6 +62,13 @@ export default class MyEvents extends React.Component {
     }
 }
 
+// typechecking validation
 MyEvents.propTypes = {
-    match: PropTypes.object.isRequired    
+    match: PropTypes.object,
+    events: PropTypes.array,
+    fetchmyEvents: PropTypes.func,
+    error: PropTypes.string,
+    deleted: PropTypes.bool
 };
+
+export default MyEvents; 

@@ -3,14 +3,19 @@ import { Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { createEvent } from '../../actions/events';
+import { createEvent } from '../../actions/events.actions';
 import CreateEventForm from '../forms/CreateEventForm';
 
 
-class CreateEvent extends React.Component {
-    submit = (data) =>
-        this.props.createEvent(data).then(() => this.props.history.push('/events'));
+export class CreateEvent extends React.Component {
     
+    // makes call to create event
+    submit = (data) =>
+        this.props.createEvent(data)
+            .then(event => {
+                this.props.history.push(`/events/${event.id}`);
+            });
+
     render() {
         document.title = 'Bright Events | Create Event';
         return (
@@ -24,11 +29,13 @@ class CreateEvent extends React.Component {
     }
 }
 
+// typechecking validation
 CreateEvent.propTypes = {
     history: PropTypes.shape({
         push: PropTypes.func.isRequired
-    }).isRequired,
-    createEvent: PropTypes.func.isRequired
+    }),
+    createEvent: PropTypes.func,
+    message: PropTypes.string
 };
 
 export default connect(null, { createEvent })(CreateEvent);

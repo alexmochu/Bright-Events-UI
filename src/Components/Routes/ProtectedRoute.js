@@ -11,15 +11,18 @@ const ProtectedRoute = ({ isAuthenticated, component: Component, ...rest }) => (
     />
 );
 
+// typechecking validation
 ProtectedRoute.propTypes = {
     component: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired
 };
 
+// get data from store and provide as props
 function mapStateToProps(state) {
     return {
         isAuthenticated: !!state.user.auth_token,
     };
 }
 
+// Connects a React component to a Redux store
 export default connect(mapStateToProps)(ProtectedRoute);

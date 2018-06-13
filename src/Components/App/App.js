@@ -1,40 +1,44 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import Header from '../Header/Header';
 import Home from '../Home/Home';
-import ShowEvents from '../ShowEvents/ShowEvents';
-import EventItem from '../EventDetail/EventItem';
-import Login from '../Login/Login';
-import Signup from '../Signup/Signup';
 import CreateEvent from '../CreateEvent/CreateEvent';
-import RsvpEvents from '../ShowEvents/RsvpEvents';
-import EditEvent from '../EditEvent/EditEvent';
-import MyEvents from '../ShowEvents/MyEvents';
 import SearchEvents from '../SearchEvents/SearchEvents';
-import ResetPassword from '../ResetPassword/ResetPassword';
 import ProtectedRoute from '../Routes/ProtectedRoute';
+import PageNotFound from '../Routes/PageNotFound';
+import HeaderContainer from '../Header/HeaderContainer';
+import MyEventsContainer from '../ShowEvents/MyEventsContainer';
+import ShowEventsContainer from '../ShowEvents/ShowEventsContainer';
+import EventContainer from '../EventDetail/EventContainer';
+import SignupContainer from '../Signup/SignupContainer';
+import LoginContainer from '../Login/LoginContainer';
+import EditEventContainer from '../EditEvent/EditEventContainer';
+import RsvpEventsContainer from '../ShowEvents/RsvpEventsContainer';
+import SubmitEmailContainer from '../ResetPassword/SubmitEmailContainer';
+import ResetPasswordContainer from '../ResetPassword/ResetPasswordContainer';
 
 
 class App extends Component {
     render() {
         return (
-            <Router>
-                <div>
-                    <Header/>
+            <div>
+                <HeaderContainer/>
+                <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route exact path='/events' component={ShowEvents} />
-                    <Route path='/events/:id' component={EventItem} />
+                    <Route exact path='/events' component={ShowEventsContainer} />
+                    <Route path='/events/:id' component={EventContainer} />
                     <ProtectedRoute path='/event/new' component={CreateEvent} />
-                    <Route path='/login' component={Login} />
-                    <Route path='/signup' component={Signup} />
-                    <ProtectedRoute path='/rsvp' component={RsvpEvents} />
-                    <ProtectedRoute path='/edit/events/:id' component={EditEvent} />
-                    <ProtectedRoute path='/user/:id/events' component={MyEvents} />
+                    <Route path='/login' component={LoginContainer} />
+                    <Route path='/signup' component={SignupContainer} />
+                    <ProtectedRoute path='/rsvp' component={RsvpEventsContainer} />
+                    <ProtectedRoute path='/edit/events/:id' component={EditEventContainer} />
+                    <ProtectedRoute path='/user/:id/events' exact component={MyEventsContainer} />
                     <Route path='/search/events' component={SearchEvents} />
-                    <ProtectedRoute path='/reset-password' component={ResetPassword} />
-                </div>
-            </Router>
+                    <Route path='/request-password-reset' component={SubmitEmailContainer} />
+                    <Route path='/reset-password/token=:token' component={ResetPasswordContainer} />
+                    <Route component={PageNotFound}/>
+                </Switch>
+            </div>
         );
     }
 }

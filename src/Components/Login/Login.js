@@ -1,34 +1,54 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
-import { connect } from 'react-redux';
+import { Container, Message } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
-import { login } from '../../actions/auth';
 import LoginForm from '../forms/LoginForm';
-
+import { Notifications } from '../messages/Notifications';
 
 class Login extends React.Component {
+    
+    componentDidMount(){
+        Notifications();
+    }
+    
+    // makes call to login a user
     submit = (data) =>
-        this.props.login(data).then(() => this.props.history.push('/events'));
+        this.props.login(data)
+            .then(() => this.props.history.push('/events'));
     
     render() {
+        const { isAuthenticated, message } = this.props;
         document.title = 'Bright Events | Login';
         return (
             <div>
-                <Container text style={{ marginTop: '7em' }}>
-                    <h1>Login</h1>
-                    <LoginForm submit={this.submit}/>
-                </Container>
+                { !isAuthenticated? 
+                    <Container text style={{ marginTop: '7em' }}>
+                        { message && (
+                            <Message positive className='semantic-message'>
+                                <p>{message}</p>
+                            </Message>
+                        )}
+                        <h1>Login</h1>
+                        <LoginForm submit={this.submit}/>
+                    </Container>
+                    :
+                    <Redirect to='/events'/> 
+                }
             </div>
         );
     }
 }
 
+
+// typechecking validation
 Login.propTypes = {
     history: PropTypes.shape({
-        push: PropTypes.func.isRequired
-    }).isRequired,
-    login: PropTypes.func.isRequired
+        push: PropTypes.func
+    }),
+    login: PropTypes.func,
+    isAuthenticated: PropTypes.bool,
+    message: PropTypes.string
 };
 
-export default connect(null, { login })(Login);
+export default Login;

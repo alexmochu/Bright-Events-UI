@@ -1,9 +1,10 @@
 import React from 'react';
 import { Form, Button, Message } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import InlineError from '../messages/InlineError';
-
+import { Notifications } from '../messages/Notifications';
 
 class EditEventForm extends React.Component {
     state = {
@@ -18,20 +19,38 @@ class EditEventForm extends React.Component {
         errors: {}
     }
 
+    componentDidMount() {
+        Notifications();
+    }
 
+    formatDate = eventDate => {
+        const date = new Date(eventDate);
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return [year, month, day].join('-');
+    };
+// handles form data state change
 onChange = e => 
     this.setState({ 
         data: { ...this.state.data, [e.target.name]: e.target.value}
     });
-    
+
+/*
+invoked just before mounting occurs. 
+It is called before render()
+*/
 componentWillMount = () => {
     this.setState({data:this.props.event});
 }
+
+// handles form data submission.
 onSubmit = (event) => {
     event.preventDefault();
+    const eventDetails = {...this.state.data, date : this.formatDate(this.state.data.date)};
     this.props
-        .submit(this.state.data)
-        .catch(err => this.setState({ errors: err.response.data, loading: false }));
+        .submit(eventDetails)
+        .catch(err => this.setState({ errors: err.response.data }));
 };
 
 render() {
@@ -40,7 +59,7 @@ render() {
     return (
         <Form onSubmit={this.onSubmit} className="Edit-event-form">
             { errors.error && (
-                <Message negative>
+                <Message negative onDismiss={this.handleDismis}>
                     <Message.Header>Something went wrong</Message.Header>
                     <p>{errors.error}</p>
                 </Message>
@@ -51,7 +70,7 @@ render() {
                     type="text"
                     id="title" 
                     name="title" 
-                    placeholder="Jah9 Nairobi Concert" 
+                    placeholder="Jah9 NBO" 
                     defaultValue={event.title}
                     onChange={this.onChange}
                 />
@@ -96,10 +115,10 @@ render() {
             <Form.Field error={!!errors.date} required>
                 <label htmlFor="date">Event Date</label>
                 <input 
-                    type="date"
+                    type="text"
                     id="date" 
                     name="date" 
-                    defaultValue={event.date}
+                    defaultValue={moment(event.date).format('YYYY-MM-DD')}
                     onChange={this.onChange}
                 />
                 {errors.date && <InlineError text={errors.date} />}
@@ -122,9 +141,10 @@ render() {
 }
 }
 
+// typechecking validation
 EditEventForm.propTypes = {
-    submit: PropTypes.func.isRequired,
-    match: PropTypes.func.isRequired,
+    submit: PropTypes.func,
+    match: PropTypes.func,
     event: PropTypes.object
 };
 

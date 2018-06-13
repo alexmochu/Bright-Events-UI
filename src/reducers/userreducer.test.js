@@ -1,4 +1,4 @@
-import * as actions from '../actions/auth';
+import * as actions from '../actions/auth.actions';
 import * as types from '../types';
 import user from './user';
 

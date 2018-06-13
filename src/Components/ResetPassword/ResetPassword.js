@@ -1,20 +1,30 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
-import { connect } from 'react-redux';
+import { Container, Message } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-import { resetPassword } from '../../actions/auth';
 import ResetPasswordForm from '../forms/ResetPasswordForm';
-
+import { Notifications } from '../messages/Notifications';
 
 class ResetPassword extends React.Component {
-    submit = data => this.props.resetPassword(data).then(() => this.props.history.push('/events'));
+
+    componentDidMount(){
+        Notifications();
+    }
+    
+    token = this.props.match.params.token;
+    submit = data => this.props.resetPassword(data, this.token);
     
     render() {
         document.title = 'Bright Events | Reset Password';
+        const { message } = this.props;
         return (
             <div>
                 <Container text style={{ marginTop: '7em' }}>
+                    {message && (
+                        <Message positive className='semantic-message'>
+                            <p>{message}</p>
+                        </Message>
+                    )}
                     <h1>Reset Password</h1>
                     <ResetPasswordForm submit={this.submit}/>
                 </Container>
@@ -23,11 +33,14 @@ class ResetPassword extends React.Component {
     }
 }
 
+// typechecking validation
 ResetPassword.propTypes = {
+    match: PropTypes.func,
     history: PropTypes.shape({
-        push: PropTypes.func.isRequired
-    }).isRequired,
-    resetPassword: PropTypes.func.isRequired
+        push: PropTypes.func
+    }),
+    resetPassword: PropTypes.func,
+    message: PropTypes.string
 };
 
-export default connect(null, { resetPassword })(ResetPassword);
+export default ResetPassword;

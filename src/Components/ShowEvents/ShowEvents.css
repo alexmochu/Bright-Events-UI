@@ -3,7 +3,7 @@
 }
 
 .events-header {
-    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/796607/pexels-photo-796607.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center; 
+    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/114123/pexels-photo-114123.jpeg?cs=srgb&dl=art-materials-artist-bright-114123.jpg&fm=jpg) no-repeat center center; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -19,8 +19,14 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+.events-header p {
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 100;
+}
+
 .rsvp-events-header {
-    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/325526/pexels-photo-325526.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center; 
+    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/1108532/pexels-photo-1108532.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -36,8 +42,14 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+.rsvp-events-header p {
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 100;
+}
+
 .my-events-header {
-    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/827058/pexels-photo-827058.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center; 
+    background:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/955932/pexels-photo-955932.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -51,4 +63,10 @@
     color: white;
     font-weight: 100;
     font-family: 'Quicksand', sans-serif;
+}
+
+.my-events-header p {
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 100;
 }

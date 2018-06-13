@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
+import { Link }  from 'react-router-dom';
+
 import './Home.css';
 
 function Home() {
@@ -7,14 +9,14 @@ function Home() {
     return (
         <div className="index-container center">
             <h1>plan your next event.</h1>
-            <a href='/event/new'>
+            <Link to='/event/new'>
                 <Button animated color="orange">
                     <Button.Content visible>GET STARTED</Button.Content>
                     <Button.Content hidden>
                         <Icon name='right arrow' />
                     </Button.Content>
                 </Button>
-            </a>
+            </Link>
         </div>
     );
 }

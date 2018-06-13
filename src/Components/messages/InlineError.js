@@ -5,8 +5,9 @@ const InlineError = ({ text }) => (
     <span style={{ color: '#ae5856' }}>{text}</span>
 );
 
+// typechecking validation
 InlineError.propTypes = {
-    text: PropTypes.string.isRequired
+    text: PropTypes.string
 };
 
 export default InlineError;
