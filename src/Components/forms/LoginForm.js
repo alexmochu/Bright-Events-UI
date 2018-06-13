@@ -5,7 +5,6 @@ import { Link }  from 'react-router-dom';
 
 import './Form.css';
 import InlineError from '../messages/InlineError';
-import { Notifications } from '../messages/Notifications';
 
 class LoginForm extends React.Component {
     
@@ -39,6 +38,10 @@ onSubmit = (event) => {
             .catch(err => this.setState({ errors: err.response.data, loading: false }));
     }
 };
+
+handleDismis = () => {
+    this.setState({ errors: {} });
+}
 
 // validate form data
 validate = (data) => {

@@ -3,7 +3,6 @@ import { Form, Button, Message } from 'semantic-ui-react';
 import propTypes from 'prop-types';
 
 import InlineError from '../messages/InlineError';
-import { Notifications } from '../messages/Notifications';
 
 class ResetPasswordForm extends React.Component {
     state = {
@@ -38,6 +37,10 @@ validate = (data) => {
     if (!data.new_password) errors.new_password = 'New password can\'t be blank';
     if (!data.password_confirmation) errors.password_confirmation = 'Password confirmation can\'t be blank';
     return errors;
+}
+
+handleDismis = () => {
+    this.setState({ errors: {} });
 }
 
 render() {
